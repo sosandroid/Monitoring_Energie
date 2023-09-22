@@ -21,6 +21,11 @@ flowchart LR;
 	E(Onduleur)-->F;
 	F([sun2000_modbus.py])--PUI_PROD-->C
 ```
+## EmonCMS
+Installé sur un serveur local [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
+Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/install.md) openEnergyMonitor est à suivre à la lettre pour EmonCMS. Il permet d'arriver au bout de l'installation sans éccueil. J'ai ajouté ensuite Python3 et pyModbus.
+
+Dès que les données arrivent, elles sont disponibles dans "Inputs" et il s'agit d'en faire des "Feeds". Ce sont les feeds qui alimentent les dashboards. C'est parfaitement expliqué sur la doc de [SolarPV](https://docs.openenergymonitor.org/applications/solar-pv.html#configure-feeds).
 
 ## Denky D4
 Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](https://github.com/hallard/Denky-D4#firmware) plus tard, il est opérationnel. Le [tutoriel](https://github.com/hallard/Denky-D4#tasmota-template) proposé permet d'activer le template Tasmota adéquat et d'ajouter le Berry Script qui transfère les données, dont nous avons besoin, vers EmonCMS. Mon [script](./src/denky.be) est proposé pour illustration. Il envoie toutes les 15 secondes les données lues sur le Linky.
@@ -33,14 +38,9 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
-## EmonCMS
-Installé sur un serveur local [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/install.md) openEnergyMonitor est à suivre à la lettre. Il permet d'arriver au bout de l'installation sans éccueil. J'ai ajouté ensuite Python3 et pyModbus.
-
-Dès que les données arrivent, elles sont disponibles dans "Inputs" et il s'agit d'en faire des "Feeds". Ce sont les feeds qui alimentent les dashboards. C'est parfaitement expliqué sur la doc de [SolarPV](https://docs.openenergymonitor.org/applications/solar-pv.html#configure-feeds).
-
 ## L'onduleur
-L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. La liste des registres vient de [Oliver Gregorius](https://github.com/olivergregorius/sun2000_modbus) bien que je n'ai pas pu faire fonctionner sa classe. J'ai donc ré-écrit un [script Python](./src/sun2000_modbus.py) simplifié pour ce que je voulais faire. Il envoie vers EmonCMS la puissance active et la température interne.  
-[ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
+L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. La liste des registres vient de [Oliver Gregorius](https://github.com/olivergregorius/sun2000_modbus) bien que je n'ai pas pu faire fonctionner sa classe Python. J'ai donc ré-écrit un [script Python](./src/sun2000_modbus.py) simplifié pour ce que je voulais faire. Il envoie vers EmonCMS la puissance active et la température interne.  
+La [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
 Un simple `crontab` permet de le lancer toutes les 15 secondes.
 ````console
