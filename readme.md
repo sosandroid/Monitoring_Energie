@@ -18,7 +18,7 @@ flowchart LR;
 	B(Denky D4)--PUI_SOUT & PUI_INJ-->C;
 	C([EmonCMS])-->D;
     D([SolarPV App]);
-	E(Onduleur)-->F;
+	E(Onduleur Sun2000)-->F;
 	F([sun2000_modbus.py])--PUI_PROD-->C
 ```
 ## EmonCMS
@@ -38,7 +38,7 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
-## L'onduleur
+## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. La liste des registres vient de [Oliver Gregorius](https://github.com/olivergregorius/sun2000_modbus) bien que je n'ai pas pu faire fonctionner sa classe Python. J'ai donc ré-écrit un [script Python](./src/sun2000_modbus.py) simplifié pour ce que je voulais faire. Il envoie vers EmonCMS la puissance active et la température interne.  
 La [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
@@ -49,3 +49,10 @@ Un simple `crontab` permet de le lancer toutes les 15 secondes.
 * * * * * sleep 30 && /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
 * * * * * sleep 45 && /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
 ````
+---
+
+## Micro-onduleur Enphase
+Ce n'est pas mon installation, mais cela peut aider. Pour lire de manière directe les données de la passerelle Enphase, le travail de [Frédéric Metrich](https://github.com/FredM67/EnvoyS2Emoncms) est assez intéressant. Une autre variante est d'utiliser le travail de [Markus Fritze](https://github.com/sarnau/EnphaseEnergy).
+
+## Micro-onduleur APSystems
+Pour ceux qui veulent se passer du Cloud APSYStems, c'est [par là](https://github.com/PlanetSmasher/APSystems-ECU-proxy-for-cloudless-operation), ou s'inspirer [apsystems-qs1-scraper](https://github.com/pdlubisz/apsystems-qs1-scraper)
