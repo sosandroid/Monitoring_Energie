@@ -7,7 +7,7 @@ L'objectif est de surveiller une installation photovolatïque en auto-consommati
 
 Ce repo est autant un partage qu'un aide mémoire.
 
-![SolarPV](./res/solar-pv.jpg)
+![Profil Consommation](./res/Auto-conso-solaire.jpg)
 
 ## Système mis en place
 La récolte de données se fait via un [Denky D4](https://github.com/hallard/Denky-D4) basé sur un ESP32, proposé par Charles Hallard. Il récolte les puissances importées et exportées sur le Linky. Il est secondé par [EmonCMS](https://github.com/emoncms/emoncms) qui se charge d'aggréger et présenter les données. L'onduleur livre, lui, ses données via un script Python sur mesure.
