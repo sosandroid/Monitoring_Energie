@@ -56,3 +56,6 @@ Ce n'est pas mon installation, mais cela peut aider. Pour lire de manière direc
 
 ## Micro-onduleur APSystems
 Pour ceux qui veulent se passer du Cloud APSYStems, c'est [par là](https://github.com/PlanetSmasher/APSystems-ECU-proxy-for-cloudless-operation), ou s'inspirer [apsystems-qs1-scraper](https://github.com/pdlubisz/apsystems-qs1-scraper)
+
+## Micro-onduleurs Hoymiles
+Un [projet](https://github.com/wasilukm/hoymiles_modbus) les adresse via modbusTCP
