@@ -10,16 +10,17 @@ Ce repo est autant un partage qu'un aide mémoire.
 ![Profil Consommation](./res/Auto-conso-solaire.jpg)
 
 ## Système mis en place
-La récolte de données se fait via un [Denky D4](https://github.com/hallard/Denky-D4) basé sur un ESP32, proposé par Charles Hallard. Il récolte les puissances importées et exportées sur le Linky. Il est secondé par [EmonCMS](https://github.com/emoncms/emoncms) qui se charge d'aggréger et présenter les données. L'onduleur livre, lui, ses données via un script Python sur mesure.
+La récolte de données se fait via un [Denky D4](https://github.com/hallard/Denky-D4) basé sur un ESP32, proposé par Charles Hallard. Il récolte les puissances importées et exportées sur le Linky. Il est secondé par [EmonCMS](https://github.com/emoncms/emoncms) qui se charge d'aggréger et présenter les données. L'onduleur livre, lui, ses données via un script Python sur mesure. Les données de production sont également envoyées sur [PVOutput.org](https://pvoutput.org)
 
 ```mermaid
 flowchart LR;
     A(Linky)-->B;
-	B(Denky D4)--PUI_SOUT & PUI_INJ-->C;
-	C([EmonCMS])-->D;
+    B(Denky D4)--PUI_SOUT & PUI_INJ-->C;
+    C([EmonCMS])-->D;
     D([SolarPV App]);
-	E(Onduleur Sun2000)-->F;
-	F([sun2000_modbus.py])--PUI_PROD-->C
+    E(Onduleur Sun2000)-->F;
+    F([sun2000_modbus.py])--PUI_PROD-->C
+    F--PUI_PROD & Total_Energy-->G([PVOutput.org])
 ```
 ## EmonCMS
 Installé sur un serveur local [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
@@ -39,23 +40,19 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
 ## L'onduleur Huawei
-L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. La liste des registres vient de [Oliver Gregorius](https://github.com/olivergregorius/sun2000_modbus) bien que je n'ai pas pu faire fonctionner sa classe Python. J'ai donc ré-écrit un [script Python](./src/sun2000_modbus.py) simplifié pour ce que je voulais faire. Il envoie vers EmonCMS la puissance active et la température interne.  
+L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
+Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et les récupère pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de personnaliser à votre installation.  
 La [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
-Un simple `crontab` permet de le lancer toutes les 15 secondes.
-````console
-* * * * * /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
-* * * * * sleep 15 && /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
-* * * * * sleep 30 && /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
-* * * * * sleep 45 && /usr/bin/python3 /home/emoncms/sun2000_modbus.py &
-````
----
+L'installation est décrite via le fichier [markdown](./src/sun2000_modbus/sun2000_modbus.md)
 
+---
+Pour les autres types d'installation sur microonduleur, pour ceux qui me l'on demandé. Il faut s'inspirer des éléments ci-dessous.
 ## Micro-onduleur Enphase
 Ce n'est pas mon installation, mais cela peut aider. Pour lire de manière directe les données de la passerelle Enphase, le travail de [Frédéric Metrich](https://github.com/FredM67/EnvoyS2Emoncms) est assez intéressant. Une autre variante est d'utiliser le travail de [Markus Fritze](https://github.com/sarnau/EnphaseEnergy).
 
 ## Micro-onduleur APSystems
-Pour ceux qui veulent se passer du Cloud APSYStems, c'est [par là](https://github.com/PlanetSmasher/APSystems-ECU-proxy-for-cloudless-operation), ou s'inspirer [apsystems-qs1-scraper](https://github.com/pdlubisz/apsystems-qs1-scraper)
+Pour ceux qui veulent se passer du Cloud APSYStems,  un premier moyen [apsystems-qs1-scraper](https://github.com/pdlubisz/apsystems-qs1-scraper) ou [par là](https://github.com/PlanetSmasher/APSystems-ECU-proxy-for-cloudless-operation), plus "extrême" dans la méthode
 
 ## Micro-onduleurs Hoymiles
 Un [projet](https://github.com/wasilukm/hoymiles_modbus) les adresse via modbusTCP
