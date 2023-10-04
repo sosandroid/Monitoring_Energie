@@ -236,9 +236,9 @@ def sendEmonCMS(data):
     global Emoncfg, debug, debugdata
     
     #for my specific use case - to be commented
-    emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
-    data = remapKeys(data, emonlabels, True)
-    data.pop('DeviceStatusCode')
+    #emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
+    #data = remapKeys(data, emonlabels, True)
+    data.pop('DeviceStatusCode') #hex not managed by EmonCMS
     
     if (debug or debugdata): print(f'Emondata: {data}')
 
