@@ -42,12 +42,12 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 ## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
 Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et les récupère pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de personnaliser à votre installation.  
-La [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
+L'installation est décrite via le fichier de [documentation](./src/sun2000_modbus/readme.md)
 
-L'installation est décrite via le fichier [markdown](./src/sun2000_modbus/sun2000_modbus.md)
+Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
 ---
-Pour les autres types d'installation sur microonduleur, pour ceux qui me l'on demandé. Il faut s'inspirer des éléments ci-dessous.
+Pour les autres types d'installation sur micro-onduleur, pour ceux qui me l'on demandé. Il faut s'inspirer des éléments ci-dessous.
 ## Micro-onduleur Enphase
 Ce n'est pas mon installation, mais cela peut aider. Pour lire de manière directe les données de la passerelle Enphase, le travail de [Frédéric Metrich](https://github.com/FredM67/EnvoyS2Emoncms) est assez intéressant. Une autre variante est d'utiliser le travail de [Markus Fritze](https://github.com/sarnau/EnphaseEnergy).
 
