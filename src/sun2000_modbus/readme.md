@@ -1,7 +1,7 @@
 
 # Sun2000Modbus
 
-Ce script Python connecte un onduleur Huawei Sun200 via ModbusTCP. Ce protocole industriel permet de lire les différents registres de l'onduleur et récupérer les données. Elles sont mise en forme et transmises à EmonCMS et/ou PVOutput.org
+Ce script Python connecte un onduleur Huawei Sun2000 via [ModbusTCP](https://fr.wikipedia.org/wiki/Modbus) pour lire les différents registres de l'onduleur et récupérer les données. Elles sont mise en forme et transmises à EmonCMS et/ou PVOutput.org
 
 
 ## Prérequis
