@@ -7,13 +7,14 @@ Ce script Python connecte un onduleur Huawei Sun2000 via [ModbusTCP](https://fr.
 ## Prérequis
 - Python 3.10+
 - [pyModbus](https://pypi.org/project/pymodbus/)
-- _optionnel_ compte pvoutput.org
-- _optionnel_ compte Emoncms
+- à minima, un des deux compte ci-dessous
+    - _optionnel_ compte pvoutput.org
+    - _optionnel_ compte Emoncms
 
 ## Installation
 
 ### Python3
-Ubuntu est proposé par défaut sur un serveur Ubuntu, veillez à le mettre à jour. Nous avons développé et testé avec une version 3.10
+Python est proposé par défaut sur un serveur Ubuntu, veillez à le mettre à jour. Nous avons développé et testé avec une version 3.10
 ```
 sudo apt update
 sudo apt -y upgrade
@@ -30,16 +31,7 @@ sudo pip install pymodbus
 ### Sun2000_modbus
 Copiez le fichier `sun2000_modbus.py` et `sun2000-sample.conf` dans votre dossier `/home/<user>`
 
-## Configuration
-Le fichier de configuration permettra de personnaliser 3 parties:
-- Section général pour le debug
-- Section emoncms
-- Section pvoutput
-- Section sun2000
-
-Il restera également à lancer automatiquement le script de manière régulière
-
-## Le fichier de configiration
+## Le fichier de configuration
 La partie général permet de configurer le niveau de débug. A minima, pour commencer le niveau `debugdata = True` permet de s'assurer que les données sont correctement récupérées.
 
 La partie emoncms se personnalise avec:
