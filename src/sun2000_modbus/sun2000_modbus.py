@@ -177,12 +177,12 @@ def getCurrent(data, L=1):
     if (L==1):
         return getRegisterValue(data, 2, Sun2000cfg['currentl1_index'], Sun2000cfg['current_ratio'])    
     elif (L==2):
-        return getRegisterValue(data, 1, Sun2000cfg['currentl2_index'], Sun2000cfg['current_ratio'])    
+        return getRegisterValue(data, 2, Sun2000cfg['currentl2_index'], Sun2000cfg['current_ratio'])    
     elif (L==3):
-        return getRegisterValue(data, 1, Sun2000cfg['currentl3_index'], Sun2000cfg['current_ratio'])
+        return getRegisterValue(data, 2, Sun2000cfg['currentl3_index'], Sun2000cfg['current_ratio'])
     else:
         #assumes L1
-        return getRegisterValue(data, 1, Sun2000cfg['currentl1_index'], Sun2000cfg['current_ratio']) 
+        return getRegisterValue(data, 2, Sun2000cfg['currentl1_index'], Sun2000cfg['current_ratio']) 
     
 def getActivePower(data):
     global Sun2000cfg
