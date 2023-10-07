@@ -128,7 +128,7 @@ def getSun2000Data():
             "CurrentL3": getCurrent(data, 3),
             "ActivePower": getActivePower(data),
             "GridFrequency": getGridFrequency(data),
-            "Efficiency": getGridFrequency(data),
+            "Efficiency": getEfficiency(data),
             "DeviceStatusCode": getDeviceStatusCode(data)
               }
 
