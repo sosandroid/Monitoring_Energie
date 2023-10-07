@@ -10,7 +10,8 @@ Ce repo est autant un partage qu'un aide mémoire.
 ![Profil Consommation](./res/Auto-conso-solaire.jpg)
 
 ## Système mis en place
-La récolte de données se fait via un [Denky D4](https://github.com/hallard/Denky-D4) basé sur un ESP32, proposé par Charles Hallard. Il récolte les puissances importées et exportées sur le Linky. Il est secondé par [EmonCMS](https://github.com/emoncms/emoncms) qui se charge d'aggréger et présenter les données. L'onduleur livre, lui, ses données via un script Python sur mesure. Les données de production sont également envoyées sur [PVOutput.org](https://pvoutput.org)
+Nous avons deux appareils à surveiller de manière complémentaire : le compteur Endis Linky et l'onduleur Huawei Sun2000. Le premier deviendra bavard via un [Denky D4](https://github.com/hallard/Denky-D4) proposé par Charles Hallard. Il permet de lire les données de la téléinfo et de les transmettre sur le réseau. L'onduleur est déjà connecté et un script Python lira ses donées pour les partager.
+La collecte des données est faite par [EmonCMS](https://github.com/emoncms/emoncms) et/ou [PVOutput.org](https://pvoutput.org). Le diagramme ci-dessous permet de visualiser l'installation.
 
 ```mermaid
 flowchart LR;
@@ -22,10 +23,11 @@ flowchart LR;
     F([sun2000_modbus.py])--PUI_PROD-->C
     F--PUI_PROD & Total_Energy-->G([PVOutput.org])
 ```
-## EmonCMS
-Installé sur un serveur local [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
-Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/install.md) openEnergyMonitor est à suivre à la lettre pour EmonCMS. Il permet d'arriver au bout de l'installation sans éccueil. J'ai ajouté ensuite Python3 et pyModbus.
+## Serveur installé
+Nous recyclons un vieux PC sur lequelsera installé [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
 
+## EmonCMS
+Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/install.md) openEnergyMonitor est à suivre à la lettre pour EmonCMS. Il permet d'arriver au bout de l'installation sans éccueil.
 Dès que les données arrivent, elles sont disponibles dans "Inputs" et il s'agit d'en faire des "Feeds". Ce sont les feeds qui alimentent les dashboards. C'est parfaitement expliqué sur la doc de [SolarPV](https://docs.openenergymonitor.org/applications/solar-pv.html#configure-feeds).
 
 ## Denky D4
