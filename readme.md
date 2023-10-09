@@ -35,7 +35,7 @@ Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](htt
 
 Selon le mode de communication du Linky, il faudra activer le mode standard (9600 bauds) ou le mode historique (1200 bauds). Voir la [doc](https://tasmota.github.io/docs/Teleinfo/#configuring-teleinfo).   
 En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`.  
-La liste des étiquettes TIC fournie, pour mémoire, [Standard](./tic_standard.md) et [Historique](tic_historique.md). Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
+La liste des étiquettes TIC fournie, pour mémoire, [Standard](./doc/tic_standard.md) et [Historique](./doc/tic_historique.md). Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
 
 __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête.
 
@@ -49,12 +49,4 @@ L'installation est décrite via le fichier de [documentation](./src/sun2000_modb
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
 ---
-Pour les autres types d'installation sur micro-onduleur, pour ceux qui me l'on demandé. Il faut s'inspirer des éléments ci-dessous.
-## Micro-onduleur Enphase
-Ce n'est pas mon installation, mais cela peut aider. Pour lire de manière directe les données de la passerelle Enphase, le travail de [Frédéric Metrich](https://github.com/FredM67/EnvoyS2Emoncms) est assez intéressant. Une autre variante est d'utiliser le travail de [Markus Fritze](https://github.com/sarnau/EnphaseEnergy).
-
-## Micro-onduleur APSystems
-Pour ceux qui veulent se passer du Cloud APSYStems,  un premier moyen [apsystems-qs1-scraper](https://github.com/pdlubisz/apsystems-qs1-scraper) ou [par là](https://github.com/PlanetSmasher/APSystems-ECU-proxy-for-cloudless-operation), plus "extrême" dans la méthode
-
-## Micro-onduleurs Hoymiles
-Un [projet](https://github.com/wasilukm/hoymiles_modbus) les adresse via modbusTCP
+Pour les autres types d'installation sur micro-onduleur, pour ceux qui me l'on demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
