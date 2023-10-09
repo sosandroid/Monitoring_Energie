@@ -1,6 +1,6 @@
 # Denky
 
-Scrypt Berry pour récupérer les données TIC et les transmettre à EmonCMS. A personnaliser avec votre configuration
+Script Berry pour récupérer les données TIC et les transmettre à EmonCMS. A personnaliser avec votre configuration
 
 ````berry
 import json
@@ -57,3 +57,8 @@ end
 # delay start to have time to get full frame
 tasmota.set_timer(10000, start)
 ````
+
+
+# Pvoutput
+A travailler.
+Time en Berry => https://tasmota.github.io/docs/Berry/#tasmota-object
