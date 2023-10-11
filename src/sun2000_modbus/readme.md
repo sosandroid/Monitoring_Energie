@@ -65,7 +65,6 @@ url = http://127.0.0.1/input/post
 apikey = your-api-key
 nodename = your-node-name
 
-
 [pvoutput]
 enabled = True
 url = https://pvoutput.org/service/r2/addstatus.jsp
@@ -75,7 +74,6 @@ siteid = site-id-interger
 hitsperhour = 60
 #used to manage next update according to above parameter - updates after each call
 nextapicall_timestamp = 0
-
 
 [sun2000]
 enabled = True
@@ -156,8 +154,13 @@ sleep 45 && /usr/bin/python3 /home/emoncms/onduleur/sun2000_modbus.py &
 Rendez le exécutable `chmod a+x sun2000.sh`
 Vérifiez le fonctionnement `./sun2000.sh`, 4 jeux de données devraient arriver en 1 minute.
 
-Ajoutez le au crontab `crontab -e`
-
+Ajoutez le au crontab `crontab -e`  
 `* * * * * /usr/bin/sh /home/emoncms/onduleur/sun2000.sh`
 
 C'est terminé, les données arrivent toutes les 15 secondes.
+
+## A faire
+- Améliorer le script en diminuant les appels `Global`
+- Mieux utiliser la variable `Config` pour en faire un seul élément
+
+
