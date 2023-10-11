@@ -1,5 +1,11 @@
-# Monitoring d'energie panneaux photovoltaïques et Linky
+# Monitoring d'energie du Linky et de panneaux photovoltaïques
 
+> [!NOTE]
+> Due to French national energy meter, _Linky_, all of this is very French related. This is why this depot is not in English. However, except the Berry script for Tasmota firmware which connects Linky, all the other things can be easily re-used.
+> The Python's inline comments are in English for better understood of the inverter connection.
+  
+  
+  
 L'objectif est de surveiller une installation photovolatïque en auto-consommation individuelle. Nous avons donc 3 données à surveiller et à mettre en forme pour avoir un graphique de ce type :
 - Puissance soutirée du réseau
 - Puissance injectée dans le réseau
