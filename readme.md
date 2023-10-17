@@ -1,8 +1,8 @@
 # Monitoring d'energie du Linky et de panneaux photovoltaïques
 
 > [!NOTE]
-> Due to French national energy meter, _Linky_, all of this is very French related. This is why this depot is not in English. However, except the Berry script for Tasmota firmware which connects Linky, all the other things can be easily re-used.
-> The Python's inline comments are in English for better understood of the inverter connection.
+> Due to the French national energy meter, _Linky_, all of this is very French related. This is why this depot is not in English. However, except the Berry script for Tasmota firmware which connects Linky, all the other things can be easily re-used.
+> The Python's inline comments are in English for better understanding of the inverter connection.
   
   
   
@@ -16,7 +16,7 @@ Ce repo est autant un partage qu'un aide mémoire.
 ![Profil Consommation](./res/Auto-conso-solaire.jpg)
 
 ## Système mis en place
-Nous avons deux appareils à surveiller de manière complémentaire : le compteur Endis Linky et l'onduleur Huawei Sun2000. Le premier deviendra bavard via un [Denky D4](https://github.com/hallard/Denky-D4) proposé par Charles Hallard. Il permet de lire les données de la téléinfo et de les transmettre sur le réseau. L'onduleur est déjà connecté et un script Python lira ses donées pour les partager.
+Nous avons deux appareils à surveiller de manière complémentaire : le compteur Enedis Linky et l'onduleur Huawei Sun2000. Le premier deviendra bavard via un [Denky D4](https://github.com/hallard/Denky-D4) proposé par Charles Hallard. Il permet de lire les données de la téléinfo et de les transmettre au serveur. L'onduleur est déjà connecté. Un script Python lira ses données pour les partager.
 La collecte des données est faite par [EmonCMS](https://github.com/emoncms/emoncms) et/ou [PVOutput.org](https://pvoutput.org). Le diagramme ci-dessous permet de visualiser l'installation.
 
 ```mermaid
@@ -30,7 +30,7 @@ flowchart LR;
     F--PUI_PROD & Total_Energy-->G([PVOutput.org])
 ```
 ## Serveur installé
-Nous recyclons un vieux PC sur lequelsera installé [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
+Nous recyclons un vieux PC sur lequel sera installé [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
 
 ## EmonCMS
 Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/install.md) openEnergyMonitor est à suivre à la lettre pour EmonCMS. Il permet d'arriver au bout de l'installation sans éccueil.
@@ -49,7 +49,7 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 
 ## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
-Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et les récupère pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de personnaliser à votre installation.  
+Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et récupère les données pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de l'adapter à votre installation.  
 L'installation est décrite via le fichier de [documentation](./src/sun2000_modbus/readme.md)
 
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./res/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
