@@ -43,7 +43,7 @@ Selon le mode de communication du Linky, il faudra activer le mode standard (960
 En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`.  
 La liste des étiquettes TIC fournie, pour mémoire, [Standard](./doc/tic_standard.md) et [Historique](./doc/tic_historique.md). Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
 
-__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête.
+__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. UPDATE: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface)
 
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
