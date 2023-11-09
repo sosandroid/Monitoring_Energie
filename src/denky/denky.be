@@ -1,4 +1,5 @@
 import json
+import string
 
 var api_url = "http://192.168.1.1/input/post"
 var api_key = "YOUR EMONCMS API KEY"
@@ -26,9 +27,9 @@ def rule_tic(value, trigger)
   # EAST Index de soutirage total
   # EASF01 index heures pleines
   # EASF02 index heures creuses
-  # EAIT	Energie active injectée totale
+  # EAIT Energie active injectée totale
   # SINSTS Puissance app. Instantanée soutirée
-  # SINSTI	Puissance app. Instantanée injectée
+  # SINSTI Puissance app. Instantanée injectée
   # Got Heures Creuses contract so I will calculate total consumption
 
   payload['IDX_SOUT'] = value['EAST'] / 1000.0
@@ -40,6 +41,18 @@ def rule_tic(value, trigger)
   #Facilite le calcul dans EmonCMS
   payload['PUI_SOUT-INJ'] = value['SINSTS'] - value['SINSTI']
 
+  # Tempo contract - see Enedis-NOI-CPT_54E.pdf
+  var regstatus = bytes(value['STGE'])
+  payload['TARIF_COULEUR'] = regstatus.get(0,1) & 0x03
+  payload['TARIF_COULEUR_DEMAIN'] = (regstatus.get(0,1) & 0x0C) >> 2
+  # Période tarification
+  if string.find(value["LTARF"], 'HP') >= 0
+      payload['TARIF_CRENEAU'] = 2
+  elif string.find(value['LTARF'], "HC") >= 0
+      payload['TARIF_CRENEAU'] = 1
+  else
+      payload['TARIF_CRENEAU'] = 0 
+  end
 end
 
 def start()
