@@ -98,7 +98,7 @@ ADSC d'exemple 012361456789 pour un **Linky**
 |Code constructeur|Millesime de production|**61** mono 60A G3<br> **6**2 mono 90A G1 <br> **63** tri 60A G1 <br> **64** mono 60A G3 <br> **70** mono 60A G3 <br> **71** tri 60A G3 <br> **75** mono 90A G3 <br> **76** tri 60A G3|Matricule du compteur|
 
 ## Décodage STEG
-Registre des statuts pour le mode standard. Composé de 4 octets exprimé en hexadécimal
+Registre des statuts pour le mode standard. Composé de 4 octets exprimé en hexadécimal. Les masques Bitwise sont calculés sur la base d'un octet. Un exemple de décodage partiel est proposé dans le script Berry.
 
 | Octet 4 | Octet 3 | Octet 2 | Octet 1 |
 |---|---|---|---|
