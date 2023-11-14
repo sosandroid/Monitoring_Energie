@@ -37,13 +37,12 @@ Le [tutoriel](https://github.com/openenergymonitor/EmonScripts/blob/master/docs/
 Dès que les données arrivent, elles sont disponibles dans "Inputs" et il s'agit d'en faire des "Feeds". Ce sont les feeds qui alimentent les dashboards. C'est parfaitement expliqué sur la doc de [SolarPV](https://docs.openenergymonitor.org/applications/solar-pv.html#configure-feeds).
 
 ## Denky D4
-Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](https://github.com/hallard/Denky-D4#firmware) plus tard, il est opérationnel. Le [tutoriel](https://github.com/hallard/Denky-D4#tasmota-template) proposé permet d'activer le template Tasmota adéquat et d'ajouter le Berry Script qui transfère les données, dont nous avons besoin, vers EmonCMS. Mon [script](./src/denky.be) est proposé pour illustration. Il envoie toutes les 15 secondes les données lues sur le Linky.
+Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](https://github.com/hallard/Denky-D4#firmware) plus tard, il est opérationnel. Le [tutoriel](https://github.com/hallard/Denky-D4#tasmota-template) proposé permet d'activer le template Tasmota adéquat et d'ajouter le Berry Script qui transfère les données, dont nous avons besoin, vers EmonCMS. Mon [script](./src/denky) est proposé pour illustration. Il envoie toutes les 15 secondes les données lues sur le Linky.
 
 Selon le mode de communication du Linky, il faudra activer le mode standard (9600 bauds) ou le mode historique (1200 bauds). Voir la [doc](https://tasmota.github.io/docs/Teleinfo/#configuring-teleinfo).   
-En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`.  
-La liste des étiquettes TIC fournie, pour mémoire, [Standard](./doc/tic_standard.md) et [Historique](./doc/tic_historique.md). Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
+En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`. La liste des [étiquettes TIC](./doc/tic_standard_histo.md) fournie pour mémoire. Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
 
-__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. UPDATE: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface)
+__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. **UPDATE**: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface)
 
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
