@@ -30,16 +30,16 @@ end
 # set global payload the field we need
 def rule_tic(value, trigger)
   # EAST Index de soutirage total
-  # EASF01 index heures pleines
-  # EASF02 index heures creuses
+  # EASF01 index heures creuses
+  # EASF02 index heures pleines
   # EAIT Energie active injectée totale
   # SINSTS Puissance app. Instantanée soutirée
   # SINSTI Puissance app. Instantanée injectée
   # Got Heures Creuses contract so I will calculate total consumption
 
   payload['IDX_SOUT'] = value['EAST'] / 1000.0
-  payload['IDX_SOUT_HC'] = value['EASF01'] / 1000.0
-  payload['IDX_SOUT_HP'] = value['EASF02'] / 1000.0
+  payload['IDX_SOUT_HP'] = value['EASF01'] / 1000.0
+  payload['IDX_SOUT_HC'] = value['EASF02'] / 1000.0
   payload['IDX_INJ'] = value['EAIT'] / 1000.0
   payload['PUI_SOUT'] = value['SINSTS']
   payload['PUI_INJ'] = value['SINSTI']
