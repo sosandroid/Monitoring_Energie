@@ -1,7 +1,7 @@
 # TIC Mode Standard et historique
 
 ## Liste des étiquettes
-Tentative d'équivalence entre les étiquettes des deux modes. Voir les documents de référence [Enedis-NOI-CPT_54E.pdf](./Enedis-NOI-CPT_54E.pdf) et [Enedis-NOI-CPT_02E.pdf](./Enedis-NOI-CPT_02E.pdf)
+Tentative d'équivalence entre les étiquettes des deux modes. Voir les documents de référence [Enedis-NOI-CPT_54E.pdf](./Enedis/Enedis-NOI-CPT_54E.pdf) et [Enedis-NOI-CPT_02E.pdf](./Enedis/Enedis-NOI-CPT_02E.pdf)
 
 |Etiquette Standard | Description | Etiquette Historique |
 |--|--|--|
@@ -46,14 +46,14 @@ Tentative d'équivalence entre les étiquettes des deux modes. Voir les document
 |SINSTS1 | Puissance app. Instantanée soutirée phase 1| - |
 |SINSTS2 | Puissance app. Instantanée soutirée phase 2| - |
 |SINSTS3 | Puissance app. Instantanée soutirée phase 3| - |
-|SMAXSN | Puissance app. max. soutirée n|
-|SMAXSN1 | Puissance app. max. soutirée n phase 1|
-|SMAXSN2 | Puissance app. max. soutirée n phase 2|
-|SMAXSN3 | Puissance app. max. soutirée n phase 3|
+|SMAXSN | Puissance app. max. soutirée n| - |
+|SMAXSN1 | Puissance app. max. soutirée n phase 1| - |
+|SMAXSN2 | Puissance app. max. soutirée n phase 2| - |
+|SMAXSN3 | Puissance app. max. soutirée n phase 3| - |
 |SMAXSN-1 | Puissance app max. soutirée n-1| PMAX |
-|SMAXSN1-1 | Puissance app max. soutirée n-1 phase 1|
-|SMAXSN2-1 | Puissance app max. soutirée n-1 phase 2|
-|SMAXSN3-1 | Puissance app max. soutirée n-1 phase 3|
+|SMAXSN1-1 | Puissance app max. soutirée n-1 phase 1| - |
+|SMAXSN2-1 | Puissance app max. soutirée n-1 phase 2| - |
+|SMAXSN3-1 | Puissance app max. soutirée n-1 phase 3| - |
 |SINSTI | Puissance app. Instantanée injectée | - |
 |SMAXIN | Puissance app. max. injectée n | - |
 |SMAXIN-1 | Puissance app max. injectée n-1 | - |
@@ -82,11 +82,11 @@ Tentative d'équivalence entre les étiquettes des deux modes. Voir les document
 |PPOINTE | Profil du prochain jour de pointe|
 | - | Préavis début EJP (30 min) | PEJP |
 | _voir le contenu de STGE et son décodage_ | Couleur du lendemain (BLEU, BLAN, ROUG) | DEMAIN |
-| _voir PREF_ | Intenisté souscrite (PREF en VA / 200V) en monophasé <br> Intensité souscrite (PREF en VA / 200V)/3 en triphasé | ISOUSC |
+| _voir PREF_ | intensité souscrite (PREF en VA / 200V) en monophasé <br> Intensité souscrite (PREF en VA / 200V)/3 en triphasé | ISOUSC |
 | - | Avertissement dépassement puissance souscrite | ADPS |
-| - | Avertissement dépassement intenisté phase 1 | ADIR1 |
-| - | Avertissement dépassement intenisté phase 2 | ADIR2 |
-| - | Avertissement dépassement intenisté phase 3 | ADIR3 |
+| - | Avertissement dépassement intensité phase 1 | ADIR1 |
+| - | Avertissement dépassement intensité phase 2 | ADIR2 |
+| - | Avertissement dépassement intensité phase 3 | ADIR3 |
 | - | Présence des potentiels | PPOT |
 | - | Mot d'état du compteur - usage réservé au distributeur, non documenté | MOTDETAT |
 
