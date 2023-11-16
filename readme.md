@@ -54,4 +54,4 @@ L'installation est décrite via le fichier de [documentation](./src/sun2000_modb
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
 ---
-Pour les autres types d'installation sur micro-onduleur, pour ceux qui me l'on demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
+Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
