@@ -103,25 +103,25 @@ Registre des statuts pour le mode standard. Composé de 4 octets exprimé en hex
 | Octet 4 | Octet 3 | Octet 2 | Octet 1 |
 |---|---|---|---|
 
-**Octet 1**
+**Octet 1** Surtension - Cache borne - Organe coupure
 |7|6|5|4|3..1|0|
 |---|---|---|---|---|---|
 | Dépassement puissance <br> 0: Pas de dépassement <br> 1: dépassement en cours | Surtension sur une phase <br> 0: Pas de surtension <br> 1: surtension sur au moins une phase, peut provoquer une alarme pour concentrateur (voir registre _alarmfilter_) | Non utilisé: 0 | Cache borne distributeur <br> 0: fermé <br> 1: ouvert | organe de coupure<br>0: fermé <br> 1: ouvert sur surpuissance <br> 2: ouvert sur surtension <br> 3: ouvert sur délestage <br> 4: ouvert sur ordre CPL ou Euridis <br >5: ouvert sur surchauffe avec courant supérieur au courant de commutation max <br >6: ouvert sur surchauffe avec courant inférieur au courant de commutation max | Contact sec <br> 0: ouvert <br> 1: fermé |
 | (X & 0x80) >> 7 | (X & 0x40) >> 6 | (X & 0x20) >> 5 | (X & 0x10) >> 4 | (X & 0x0E) >> 1 | (X & 0x01) |
 
-**Octet 2**
+**Octet 2** Tarifs et index, Sens de l'énergie
 |15..14|13..10|9|8|
 |---|---|---|---|
 | tarif en cours sur contrat distributeur _(EASDxx)_ <br> 0: vers index 1 <br> 1: vers index 2 <br> 2: vers index 3 <br> 3: vers index 4 | Tarif en cours sur constrat fourniture _(EASFxx)_  <br> 0: vers index 1 <br> 1: vers index 2 <br> 2: vers index 3 <br> 3: vers index 4 <br> 4: vers index 5 <br> 5: vers index 6 <br> 6: vers index 7 <br> 7: vers index 8 <br> 8: vers index 9 <br> 9: vers index 10 | Sens de l'énergie active <br> 0: Energie active positive (consommation) <br> 1: énergie active négative (production) | Fonctionnement <br> 0:consommateur <br> 1:producteur |
 | (X & 0xC0) >>6 | (X & 0x3C) >>3 | (X & 0x02) >> 1 | (X & 0x01) |
 
-**Octet 3**
+**Octet 3** Communication
 | 23 | 22..21 | 20..19 | 18 | 17 | 16 |
 |---|---|---|---|---|---|
 | Synchro CPL <br> 0: hors synchro <br> 1: en synchro | Statut CPL, notation binaire <br> 00: New / unlock <br> 01: New / Lock <br> 10: Registered <br> notation décimale fonctionne aussi | Etat sortie com Euridis <br> 0: désactivé <br> 1: Activé sans sécurité <br> 2: non utilisé <br> 3: Activé avec sécurité | non utilisé <br> toujours 0 | Sortie téléinformation <br> 0: mode historique <br> 1: mode standard <br><br> _Amusant car l'étiquette n'existe pas en mode historique_ | Horloge interne <br> 0: horloge correcte <br> 1: horloge dégradée, perte synchro |
 | (X & 0x80) >> 7 | (X & 0x60) >> 5 | (X & 0x18) >>3 | (X & 0x04 ) >> 2 | (X & 0x02) >> 1| (X & 0x01) |
 
-**Octet 4**
+**Octet 4** Tempo et pointes mobiles
 |31..30 | 29..28 | 27..26 | 25..24 |
 |---|---|---|---|
 | Pointe mobile <br> 0: Pas de pointe mobile <br> 1: PM1 en cours <br> 2: PM2 en cours <br> 3: PM3 en cours | Péavis pointe mobile <br> 0: Pas de préavis pointe mobile <br> 1: préavis PM1 en cours <br> 2: préavis PM2 en cours <br> 3: préavis PM3 en cours | Couleur lendemain Tempo <br> 0: pas d'annonce  ou hors contrat Tempo <br> 1: Bleu <br> 2: Blanc <br> 3: rouge | Couleur Tempo du jour <br> 0: pas d'annonce  ou hors contrat Tempo <br> 1: Bleu <br> 2: Blanc <br> 3: rouge |
