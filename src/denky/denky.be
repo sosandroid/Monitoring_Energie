@@ -1,9 +1,9 @@
 import json
-import string
+import string #Commenter les lignes concernées si cela échoue
 
-var api_url = "http://192.168.1.1/input/post"
-var api_key = "YOUR EMONCMS API KEY"
-var node_name = "LINKY"
+var api_url = "http://192.168.1.1/input/post" # persoanlize the URL
+var api_key = "YOUR EMONCMS API KEY" # persoanlize the API Key
+var node_name = "LINKY" # persoanlize node name
 var post_every = 15000 # post evert 15 seconds
 var payload = {}
 
@@ -30,11 +30,10 @@ def rule_tic(value, trigger)
   # EAIT Energie active injectée totale
   # SINSTS Puissance app. Instantanée soutirée
   # SINSTI Puissance app. Instantanée injectée
-  # Got Heures Creuses contract so I will calculate total consumption
 
   payload['IDX_SOUT'] = value['EAST'] / 1000.0
-  payload['IDX_SOUT_HP'] = value['EASF01'] / 1000.0
-  payload['IDX_SOUT_HC'] = value['EASF02'] / 1000.0
+  payload['IDX_SOUT_HP'] = value['EASF02'] / 1000.0
+  payload['IDX_SOUT_HC'] = value['EASF01'] / 1000.0
   payload['IDX_INJ'] = value['EAIT'] / 1000.0
   payload['PUI_SOUT'] = value['SINSTS']
   payload['PUI_INJ'] = value['SINSTI']
@@ -42,10 +41,11 @@ def rule_tic(value, trigger)
   payload['PUI_SOUT-INJ'] = value['SINSTS'] - value['SINSTI']
 
   # Tempo contract - see Enedis-NOI-CPT_54E.pdf
+  # Couleur jour et demain
   var regstatus = bytes(value['STGE'])
   payload['TARIF_COULEUR'] = regstatus.get(0,1) & 0x03
   payload['TARIF_COULEUR_DEMAIN'] = (regstatus.get(0,1) & 0x0C) >> 2
-  # Période tarification
+  # Période tarification HP / HC
   if string.find(value["LTARF"], 'HP') >= 0
       payload['TARIF_CRENEAU'] = 2
   elif string.find(value['LTARF'], "HC") >= 0
