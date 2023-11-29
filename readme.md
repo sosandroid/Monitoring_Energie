@@ -42,7 +42,7 @@ Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](htt
 Selon le mode de communication du Linky, il faudra activer le mode standard (9600 bauds) ou le mode historique (1200 bauds). Voir la [doc](https://tasmota.github.io/docs/Teleinfo/#configuring-teleinfo).   
 En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`. La liste des [étiquettes TIC](./doc/tic_standard_histo.md) fournie pour mémoire. Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
 
-__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. **UPDATE**: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface)
+__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. **UPDATE**: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface). Il y a aussi l'alternative de [Nicolas Bernaerts](https://github.com/NicolasBernaerts/tasmota/tree/master/teleinfo) qui semble for intéressante.
 
 ![denky d4](./res/denky.jpg "affichage pendant export").
 
