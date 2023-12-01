@@ -4,9 +4,20 @@
           "Email": "pilot@mailjet.com",
           "Name": "Mailjet Pilot"
       },
-      "Subject": "Your email flight plan!",
-	  "TextPart": "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!",
-	  "HTMLPart": "<h3>Dear passenger 1, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />May the delivery force be with you!"
+      "Subject": "",
+	  "TextPart": "",
+	  "HTMLPart": "",
+	  "Variables": {
+		  "__couleurj__": "rouge",
+		  "__couleurj1__": "indetermine",
+		  "__heure__": "00:00",
+		  "__sunrise__": "00:00",
+		  "__sunset__": "00:00",
+		  "__meteocss__": "",
+		  "__meteohtml__": "",
+		  "__nbrouges__": 0,
+		  "__nbblancs__": 0
+	  }
 },
   "Messages":[
       {
