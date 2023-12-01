@@ -1,0 +1,1 @@
+<div class="meteo"><div class="__iconclass__"></div><span>__heure__h<br>__cond__<br>__temp__ °c<br>__press__ mbar<br>__humid__ %RH<br>Pluie __rain__ mm</span></div>
