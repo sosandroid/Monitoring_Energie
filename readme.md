@@ -53,5 +53,8 @@ L'installation est décrite via le fichier de [documentation](./src/sun2000_modb
 
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
+## Suivi Offre Tempo
+Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi.
+
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
