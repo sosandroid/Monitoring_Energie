@@ -1,0 +1,39 @@
+{
+	"description": "Config file for service",
+    "app":{
+        "alertlevel":3,
+        "alertlevel-comment":"Niveau à partir duquel le mail est envoyé : 1 bleu, 2 blanc, 3 rouge",
+        "mailhtmltemplate":"mail.tpl",
+        "mailtxttemplate": "mailtxt.tpl",
+        "meteotemplateinline":"meteo.tpl",
+        "messagestemplate":"bulkmail.json",
+        "messageicons-img": "icons-img.json"
+    },
+	"owm": {
+        "desc": "Openweathermap.org parameters",
+        "params": {
+            "appid": "bla-bla",
+            "lat": 45.0,
+            "lon": 5.0,
+            "cnt":8,
+            "units": "metric",
+            "lang": "fr"
+        },
+        "forcast_url": "https://api.openweathermap.org/data/2.5/forecast?"
+	},
+	"mailjet": {
+		"desc": "mailjet api services data",
+		"apikey": "bla-bla",
+		"apisecret": "bla-bla"
+	},
+    "csscouleurs": {
+        "indetermine": "background:#ccc;color:#000;border-color:#ccc;",
+        "bleu":"background:#0000e6;color:#FFF;border-color:#0000e6",
+        "blanc":"background:#FFF;color:#000;border-color:#ccc",
+        "rouge":"background:#e60000;color:#FFF;border-color:#e60000;"
+    },
+    "subjectEmail": {
+        "matin": "Aujourd'hui Tempo __couleurj__",
+        "demain": "Demain Tempo __couleurj1__"
+    }
+}
