@@ -16,7 +16,7 @@ flowchart LR;
 Si une variation de jour ou de couleur de jour est détectée, le script poursuit avec l'envoi d'un mail, si le niveau d'alerte souhaité est atteint. Par exemple, pour n'avoir que les alertes impliquant un jour rouge. Si le mail doit être envoyé, le script récupère les données, les met en forme et transmet à Mailjet pour envoi.  
 Pour l'automatisation, vous pouvez soit le faire à intervalle régulier (couleur de demain au plus tôt) ou à horaire fixe.
 
-Pourquoi Mailjet ? Parce qu'avec OVH en SMTP, l'envoi de mail depuis un script ne garanti pas l'expédition. Ensuite cela permet de découvrir une API via un compte gratuit.
+Pourquoi Mailjet ? Parce qu'avec OVH en SMTP, l'envoi de mail depuis un script ne garanti pas l'expédition ou la réception. Ensuite cela permet de découvrir une API via un compte gratuit.
 
 ## Installation
 Nécessite Python 3 et `Requests` `mailjet_rest`
@@ -24,7 +24,7 @@ Nécessite Python 3 et `Requests` `mailjet_rest`
 Copiez les fichiers dans un dossier du serveur. Par exemple `home\emoncm\enedis`.  
 
 Les fichiers minimum pour fonctionner sont
-``
+````
 ene.py => vérifie les données de couleur du jour et de demain
 mailmj.py => met en forme et envoie le mail
 owm.py => gère la météo
@@ -36,7 +36,7 @@ bulkmail.json => modèle d'envoi en masse vers Mailjet (contient la liste d'adre
 config.json => configuration de l'envoi, paramétrage OWM et mailjet
 icons-img.json => les icones météo disponibles en PNG base64
 run.json => mémoire de la dernière exécution
-``
+````
 Modifiez la configuration `config.json` et la liste des destinataires dans `bulkmail.json`  
 Rendez les fichiers python exécutables `chmod a+x *.py`
 
