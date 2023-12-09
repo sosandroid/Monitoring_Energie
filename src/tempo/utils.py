@@ -29,7 +29,7 @@ def saveJsonFile(data, name):
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 def saveLastRun(data):
-    saveJsonFile(data, "run.json")
+    saveJsonFile(data, str(Path(__file__).parent.absolute() / 'run.json'))
 
 def makeUrlQuery(url, params):
     return url + urlencode(params, quote_via=quote_plus)
