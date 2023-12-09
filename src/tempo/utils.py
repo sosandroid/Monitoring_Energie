@@ -12,6 +12,7 @@ from datetime import datetime
 import json
 import requests
 from urllib.parse import urlencode, quote_plus
+from pathlib import Path
 
 def loadJsonFile(file):
     with open(file, encoding='utf-8') as fic:
