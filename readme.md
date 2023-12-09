@@ -11,6 +11,8 @@ L'objectif est de surveiller une installation photovolatïque en auto-consommati
 - Puissance injectée dans le réseau
 - Puissance produite par les panneaux
 
+Un autre objectif, arrivé avec le changement d'offre de mon fournisseur d'énergie, est la surveillance des jours Tempo rouge.
+
 Ce repo est autant un partage qu'un aide mémoire.
 
 ![Profil Consommation](./res/Auto-conso-solaire.jpg)
@@ -54,7 +56,7 @@ L'installation est décrite via le fichier de [documentation](./src/sun2000_modb
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
 
 ## Suivi Offre Tempo
-Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi.
+Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi. Il permet de régler la couleur de déclenchement de l'alerte et d'envoyer un email enrichi de la météo locale. Pratique pour anticiper...
 
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
