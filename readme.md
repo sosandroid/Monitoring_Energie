@@ -46,8 +46,6 @@ En mode standard, la commande est `energyconfig standard`, en mode historique, l
 
 __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. **UPDATE**: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface). Il y a aussi l'alternative de [Nicolas Bernaerts](https://github.com/NicolasBernaerts/tasmota/tree/master/teleinfo) qui semble for intéressante.
 
-![denky d4](./res/denky.jpg "affichage pendant export").
-
 ## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
 Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et récupère les données pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de l'adapter à votre installation.  
