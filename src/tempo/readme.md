@@ -46,4 +46,4 @@ Rendez les fichiers python exécutables `chmod a+x *.py`
 
 Lancez une fois à la main `py ./ene.py` pour valider le fonctionnement.  
 Si tout fonctionne, il restera à automatiser le lancement via un CronJob. Pour cela personnalisez le fichier tempo.sh par rapport à votre installation. Rendez le exécutable `chmod A+x tempo.sh`.  
-Il n'y a plus qu'à l'appeler via le cron. Pour ma part, il est appelé à 6h puis toutes les heures entre 16 et 21h. `0 6,16-21 * * *`
+Il n'y a plus qu'à l'appeler via le cron. Pour ma part, il est appelé à 6h puis toutes les heures entre 16 et 21h. `0 6,11-21 * * *`
