@@ -19,7 +19,7 @@ def mjMessages(conf, data):
 
     mes['Globals']['HTMLPart'] = mjFormatMessage(utils.loadTextFile(str(Path(__file__).parent.absolute() / conf['app']['mailhtmltemplate'])), data)
     mes['Globals']['TextPart'] = mjFormatMessage(utils.loadTextFile(str(Path(__file__).parent.absolute() / conf['app']['mailtxttemplate'])), data)
-    mes['Globals']['Subject'] = conf['subjectEmail']['matin'] if(datetime.now().hour < 12) else conf['subjectEmail']['demain']
+    mes['Globals']['Subject'] = conf['subjectEmail']['matin'] if(datetime.now().hour <= 11) else conf['subjectEmail']['demain']
     mes['Globals']['Subject'] = mjFormatMessage(mes['Globals']['Subject'], data)
 
     return mes
