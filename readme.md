@@ -30,6 +30,7 @@ flowchart LR;
     E(Onduleur Sun2000)-->F;
     F([sun2000_modbus.py])--PUI_PROD-->C
     F--PUI_PROD & Total_Energy-->G([PVOutput.org])
+    F--Total_Energy-->H([BDPV.fr])
 ```
 ## Serveur installé
 Nous recyclons un vieux PC sur lequel sera installé [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
