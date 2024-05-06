@@ -1,6 +1,6 @@
 
 
-# This send data Huawei Sun2000 to emonCMS and/or PVOutput.org
+# This send data Huawei Sun2000 to emonCMS, PVOutput.org and/or bdpv.fr
 #  
 # coded by: Emmanuel Havet
 
@@ -18,26 +18,26 @@ import time
 
 from pymodbus import pymodbus_apply_logging_config
 from pymodbus.client import (
-    ModbusSerialClient,
+    # ModbusSerialClient,
     ModbusTcpClient,
-    ModbusTlsClient,
-    ModbusUdpClient,
+    # ModbusTlsClient,
+    # ModbusUdpClient,
 )
-from pymodbus.exceptions import ModbusException
-from pymodbus.pdu import ExceptionResponse
+# from pymodbus.exceptions import ModbusException
+# from pymodbus.pdu import ExceptionResponse
 from pymodbus.transaction import (
     #    ModbusAsciiFramer,
     #    ModbusBinaryFramer,
-    ModbusRtuFramer,
+    #    ModbusRtuFramer,
     ModbusSocketFramer,
-    ModbusTlsFramer,
+    #    ModbusTlsFramer,
 )
 
 # --------------------------------------------------------------------------- #
 # Globals
 # --------------------------------------------------------------------------- #
 
-version = "v1.1.3"
+version = "v1.2.0"
 
 LogFileModbus        = str(Path(__file__).parent.absolute() / 'sun2000.log')
 ConfFile             = str(Path(__file__).parent.absolute() / 'sun2000.conf')
@@ -46,6 +46,7 @@ Config               = None
 Sun2000cfg           = None
 Emoncfg              = None
 Pvoutputcfg          = None
+Bdpvcfg              = None
 ModbusDebug          = False
 debug                = False
 debugdata            = False
@@ -56,7 +57,7 @@ debugdata            = False
 # --------------------------------------------------------------------------- #
 
 def getConfig(file):
-    global Sun2000cfg, Emoncfg, Pvoutputcfg, ModbusDebug, debug, Config, debugdata
+    global Sun2000cfg, Emoncfg, Pvoutputcfg, ModbusDebug, Bdpvcfg, debug, Config, debugdata
     
     if os.path.isfile(file):
         Config = ConfigParser()
@@ -68,6 +69,8 @@ def getConfig(file):
         Sun2000cfg['enabled'] = str2bool(Sun2000cfg['enabled'])
         Pvoutputcfg = dict(Config['pvoutput'])
         Pvoutputcfg['enabled'] = str2bool(Pvoutputcfg['enabled'])
+        Bdpvcfg = dict(Config['bdpv'])
+        Bdpvcfg['enabled'] = str2bool(Bdpvcfg['enabled'])
         ModbusDebug = Config['general'].getboolean('modbusdebug')
         debug = Config['general'].getboolean('debug') 
         debugdata = Config['general'].getboolean('debugdata')
@@ -236,8 +239,8 @@ def sendEmonCMS(data):
     global Emoncfg, debug, debugdata
     
     #for my specific use case - to be commented
-    #emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
-    #data = remapKeys(data, emonlabels, True)
+    emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
+    data = remapKeys(data, emonlabels, True)
     data.pop('DeviceStatusCode') #hex not managed by EmonCMS
     
     if (debug or debugdata): print(f'Emondata: {data}')
@@ -260,7 +263,7 @@ def sendPVOutput(data):
     pvoutputdata['v1'] = int(pvoutputdata['v1']*1000) #From kWh to Wh
     pvoutputdata['v2'] = int(pvoutputdata['v2'])
     pvoutputdata['c1'] = 2
-    if (debug or debugdata): print(pvoutputdata)
+    if (debug or debugdata): print(f'PVOuptut Data: {pvoutputdata}')
     
     
     
@@ -276,6 +279,29 @@ def sendPVOutput(data):
         return
     else:
         return
+
+def sendBDPV(data):
+    global Bdpvcfg, debug, debugdata
+    
+    bdpvlabels = {'AllTimeEnergy': 'index'}
+    bdpvoutputdata = remapKeys(data, bdpvlabels, False)
+    
+    bdpvoutputdata['util'] = Bdpvcfg['user']
+    bdpvoutputdata['apiKey'] = Bdpvcfg['api_key']
+    bdpvoutputdata['source'] = Bdpvcfg['source']
+    bdpvoutputdata['typeReleve'] = Bdpvcfg['typereleve']
+    bdpvoutputdata['index'] = int(bdpvoutputdata['index'] * 1000) #From kWh to Wh
+    
+    if (debug or debugdata): print(f'BDPV Data: {bdpvoutputdata}')
+    
+    if(Bdpvcfg['enabled'] and float(Bdpvcfg['nextapicall_timestamp']) < time.time()):
+        res = requests.get(Bdpvcfg['url'], params=bdpvoutputdata)
+        setNextBDPVAllowedTime()
+        if (debug or debugdata): print(f'BDPV data sent {res}')
+        return
+    else:
+        return
+    
 # --------------------------------------------------------------------------- #
 # Functions - rate limit management
 # --------------------------------------------------------------------------- #
@@ -287,6 +313,14 @@ def setNextPVOAllowedTime():
     Config['pvoutput']['nextapicall_timestamp'] = str(time.time() + interval)
     setConfig()
     
+def setNextBDPVAllowedTime():
+    global Config, Bdpvcfg
+    #Tomorrow timestamp 00:00
+    next = datetime.strptime(str(datetime.today().strftime('%Y-%m-%d')) + ' 00:00:00', '%Y-%m-%d %H:%M:%S').timestamp() + 86400
+    #Set tomorrow at the conf hour
+    Config['bdpv']['nextapicall_timestamp'] = str(next + int(Bdpvcfg['dailyhour']))
+    setConfig()
+    
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
@@ -296,5 +330,6 @@ if __name__ == "__main__":
         if (debug or debugdata): print(data)
         sendEmonCMS(data) #send data to EmonCMS
         sendPVOutput(data) #send to PVOutput
+        sendBDPV(data) #send to BDPV
     else:
         print('Can do nothing, no config found')

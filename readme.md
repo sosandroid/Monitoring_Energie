@@ -48,7 +48,7 @@ __Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode
 
 ## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
-Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et récupère les données pour les envoyer sur EmonCMS et/ou PVOutput. Le fichier de configuration permet de l'adapter à votre installation.  
+Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et récupère les données pour les envoyer sur EmonCMS, BDPV et/ou PVOutput. Le fichier de configuration permet de l'adapter à votre installation.  
 L'installation est décrite via le fichier de [documentation](./src/sun2000_modbus/readme.md)
 
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.

@@ -7,9 +7,10 @@ Ce script Python connecte un onduleur Huawei Sun2000 via [ModbusTCP](https://fr.
 ## Prérequis
 - Python 3.10+
 - [pyModbus](https://pypi.org/project/pymodbus/)
-- à minima, un des deux compte ci-dessous
+- à minima, un des trois comptes ci-dessous
     - _optionnel_ compte pvoutput.org
     - _optionnel_ compte Emoncms
+    - _optionnel_ compte BDPV.fr
 
 ## Installation
 
@@ -46,6 +47,12 @@ La partie PVOutput.org
 - l'ID du site déclaré dans PVOutput
 - Le nombre d'envoi par heure en fonction de la souscription ou non
 
+La partie BDPV
+- Activation ou non de cette partie
+- Votre nom d'utilisateur
+- Votre clef d'API
+- L'heure à laquelle envoyer l'index une fois par jour - exprimé en secondes depuis minuit
+
 Pour le sun2000, seule son adresse IP est nécessaire normalement. Si vous le désactivez (`enabled = False`) des données nulles seront envoyées.
 
 Sauvegardez ce fichier sous le nom `sun2000.conf` à coté du script. 
@@ -72,6 +79,19 @@ apikey = your-api-key
 siteid = site-id-interger
 #300 if paid plan. To be adapted to your setup
 hitsperhour = 60
+#used to manage next update according to above parameter - updates after each call
+nextapicall_timestamp = 0
+
+[bdpv]
+enabled = True
+url = https://www.bdpv.fr/webservice/majProd/expeditionProd_v3.php
+user = your-user
+api_key = you-api-key
+source = python_script
+# 'onduleur' or 'compteur'
+typereleve = onduleur
+#Each day 2:00 am
+dailyhour = 7200
 #used to manage next update according to above parameter - updates after each call
 nextapicall_timestamp = 0
 
@@ -108,6 +128,7 @@ efficiency_index = 17
 efficiency_ratio = 100
 devicestatus_index = 20
 devicestatus_ratio = 1
+
 
 ````
 
