@@ -300,7 +300,7 @@ def sendBDPV(data):
     
     if(Bdpvcfg['enabled'] and float(Bdpvcfg['nextapicall_timestamp']) < time.time()):
         res = requests.get(Bdpvcfg['url'], params=bdpvoutputdata)
-        #setNextBDPVAllowedTime()
+        setNextBDPVAllowedTime()
         if (debug or debugdata): 
             print(f'BDPV data sent {res}')
             print(res.json())
