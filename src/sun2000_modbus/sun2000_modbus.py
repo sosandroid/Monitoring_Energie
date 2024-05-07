@@ -248,7 +248,9 @@ def sendEmonCMS(data):
     if(Emoncfg['enabled']):
         params = dict(node=Emoncfg['nodename'], fulljson=json.dumps(data), apikey=Emoncfg['apikey'])
         res = requests.get(Emoncfg['url'], params=params)
-        if (debug or debugdata): print(f'Emon data sent {res}')
+        if (debug or debugdata): 
+            print(f'Emon data sent {res}')
+            print(res.json())
     else:
         return
 
@@ -275,7 +277,9 @@ def sendPVOutput(data):
         
         res = requests.post(Pvoutputcfg['url'], headers=headers, data=pvoutputdata)
         setNextPVOAllowedTime()
-        if (debug or debugdata): print(f'PVO data sent {res}')
+        if (debug or debugdata): 
+            print(f'PVO data sent {res}')
+            print(res.json())
         return
     else:
         return
@@ -296,8 +300,10 @@ def sendBDPV(data):
     
     if(Bdpvcfg['enabled'] and float(Bdpvcfg['nextapicall_timestamp']) < time.time()):
         res = requests.get(Bdpvcfg['url'], params=bdpvoutputdata)
-        setNextBDPVAllowedTime()
-        if (debug or debugdata): print(f'BDPV data sent {res}')
+        #setNextBDPVAllowedTime()
+        if (debug or debugdata): 
+            print(f'BDPV data sent {res}')
+            print(res.json())
         return
     else:
         return
