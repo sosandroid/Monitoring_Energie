@@ -49,7 +49,7 @@ Pvoutputcfg          = None
 Bdpvcfg              = None
 ModbusDebug          = False
 debug                = False
-debugdata            = False
+senddata            = False
 
 
 # --------------------------------------------------------------------------- #
@@ -73,7 +73,7 @@ def getConfig(file):
         Bdpvcfg['enabled'] = str2bool(Bdpvcfg['enabled'])
         ModbusDebug = Config['general'].getboolean('modbusdebug')
         debug = Config['general'].getboolean('debug') 
-        debugdata = Config['general'].getboolean('debugdata')
+        senddata = Config['general'].getboolean('senddata')
         
         if (debug):
             print(f'Emoncfg: {Emoncfg}')
@@ -172,7 +172,7 @@ def getVoltage(data, L=1):
         return getRegisterValue(data, 1, Sun2000cfg['voltagel3_index'], Sun2000cfg['voltage_ratio'])
     else:
         #assumes L1
-        return getRegisterValue(data, 1, Sun2000cfg['voltagel1_index'], Sun2000cfg['voltage_ratio']) 
+        return getRegisterValue(data, 1, Sun2000cfg['voltagel1_index'], Sun2000cfg['voltage_ratio'])
         
 def getCurrent(data, L=1):
     #Only L1 voltage to handle single phase inverters
@@ -236,80 +236,85 @@ def remapKeys(data, remap, allkeys = False):
 # --------------------------------------------------------------------------- #
  
 def sendEmonCMS(data):
-    global Emoncfg, debug, debugdata
-    
-    #for my specific use case - to be commented
-    emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
-    data = remapKeys(data, emonlabels, True)
-    data.pop('DeviceStatusCode') #hex not managed by EmonCMS
-    
-    if (debug or debugdata): print(f'Emondata: {data}')
+    global Emoncfg, debug, senddata
 
     if(Emoncfg['enabled']):
+    
+        #for my specific use case - to be commented
+        emonlabels = {'InstantPower': 'PUI_PROD', 'InternalTemp': 'TEMP_INT'}
+        data = remapKeys(data, emonlabels, True)
+        data.pop('DeviceStatusCode') #hex not managed by EmonCMS
+        
+        if (debug): print(f'Emondata: {data}')
+
         params = dict(node=Emoncfg['nodename'], fulljson=json.dumps(data), apikey=Emoncfg['apikey'])
-        res = requests.get(Emoncfg['url'], params=params)
-        if (debug or debugdata): 
-            print(f'Emon data sent {res}')
-            print(res.json())
+        if (senddata):
+            res = requests.get(Emoncfg['url'], params=params)
+            if (debug): 
+                print(f'Emon data sent {res}')
+                print(res.json())
     else:
         return
 
 def sendPVOutput(data):
-    global Pvoutputcfg, debug, debugdata
-    
-    pvoutputlabels = {'InstantPower': 'v2', 'AllTimeEnergy': 'v1', 'VoltageL1': 'v6'}
-    pvoutputdata = remapKeys(data, pvoutputlabels, False)
-    
-    pvoutputdata['d'] = datetime.today().strftime('%Y%m%d')
-    pvoutputdata['t'] = datetime.today().strftime('%H:%M')
-    pvoutputdata['v1'] = int(pvoutputdata['v1']*1000) #From kWh to Wh
-    pvoutputdata['v2'] = int(pvoutputdata['v2'])
-    pvoutputdata['c1'] = 2
-    if (debug or debugdata): print(f'PVOuptut Data: {pvoutputdata}')
-    
-    
+    global Pvoutputcfg, debug, senddata
     
     if(Pvoutputcfg['enabled'] and float(Pvoutputcfg['nextapicall_timestamp']) < time.time()):
+    
+        data['VoltageAvg'] = int((data['VoltageL1'] + data['VoltageL2'] + data['VoltageL3'])/3)
+        pvoutputlabels = {'InstantPower': 'v2', 'AllTimeEnergy': 'v1', 'VoltageAvg': 'v6'}
+        pvoutputdata = remapKeys(data, pvoutputlabels, False)
+        
+        pvoutputdata['d'] = datetime.today().strftime('%Y%m%d')
+        pvoutputdata['t'] = datetime.today().strftime('%H:%M')
+        pvoutputdata['v1'] = int(pvoutputdata['v1']*1000) #From kWh to Wh
+        pvoutputdata['v2'] = int(pvoutputdata['v2'])
+        pvoutputdata['c1'] = 2
+        if (debug): print(f'PVOuptut Data: {pvoutputdata}')
+    
         headers = {
             "X-Pvoutput-Apikey": Pvoutputcfg['apikey'],
             "X-Pvoutput-SystemId": Pvoutputcfg['siteid'],
             }
         
-        res = requests.post(Pvoutputcfg['url'], headers=headers, data=pvoutputdata)
-        setNextPVOAllowedTime()
-        if (debug or debugdata): 
-            print(f'PVO data sent {res}')
-            print(res.json())
+        if (senddata):
+            res = requests.post(Pvoutputcfg['url'], headers=headers, data=pvoutputdata)
+            setNextPVOAllowedTime()
+            if (debug): 
+                print(f'PVO data sent {res}')
+                print(res.json())
         return
     else:
         return
 
 def sendBDPV(data):
-    global Bdpvcfg, debug, debugdata
-    
-    bdpvlabels = {'AllTimeEnergy': 'index'}
-    bdpvoutputdata = remapKeys(data, bdpvlabels, False)
-    
-    bdpvoutputdata['util'] = Bdpvcfg['user']
-    bdpvoutputdata['apiKey'] = Bdpvcfg['api_key']
-    bdpvoutputdata['source'] = Bdpvcfg['source']
-    bdpvoutputdata['typeReleve'] = Bdpvcfg['typereleve']
-    bdpvoutputdata['index'] = int(bdpvoutputdata['index'] * 1000) #From kWh to Wh
-    
-    if (debug or debugdata): print(f'BDPV Data: {bdpvoutputdata}')
+    global Bdpvcfg, debug, senddata
     
     if(Bdpvcfg['enabled'] and float(Bdpvcfg['nextapicall_timestamp']) < time.time()):
-        res = requests.get(Bdpvcfg['url'], params=bdpvoutputdata)
-        setNextBDPVAllowedTime()
-        if (debug or debugdata): 
-            print(f'BDPV data sent {res}')
-            print(res.json())
+
+        bdpvlabels = {'AllTimeEnergy': 'index'}
+        bdpvoutputdata = remapKeys(data, bdpvlabels, False)
+        
+        bdpvoutputdata['util'] = Bdpvcfg['user']
+        bdpvoutputdata['apiKey'] = Bdpvcfg['api_key']
+        bdpvoutputdata['source'] = Bdpvcfg['source']
+        bdpvoutputdata['typeReleve'] = Bdpvcfg['typereleve']
+        bdpvoutputdata['index'] = int(bdpvoutputdata['index'] * 1000) #From kWh to Wh
+    
+        if (debug): print(f'BDPV Data: {bdpvoutputdata}')
+        
+        if (senddata):
+            res = requests.get(Bdpvcfg['url'], params=bdpvoutputdata)
+            setNextBDPVAllowedTime()
+            if (debug): 
+                print(f'BDPV data sent {res}')
+                print(res.json())
         return
     else:
         return
     
 # --------------------------------------------------------------------------- #
-# Functions - rate limit management
+# Functions - rate export to platforms limit management
 # --------------------------------------------------------------------------- #
 
 def setNextPVOAllowedTime():
@@ -333,7 +338,7 @@ def setNextBDPVAllowedTime():
 if __name__ == "__main__":
     if(getConfig(ConfFile)):  
         data = getSun2000Data()
-        if (debug or debugdata): print(data)
+        if (debug): print(data)
         sendEmonCMS(data) #send data to EmonCMS
         sendPVOutput(data) #send to PVOutput
         sendBDPV(data) #send to BDPV

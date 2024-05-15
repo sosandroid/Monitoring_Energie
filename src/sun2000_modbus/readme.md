@@ -33,7 +33,7 @@ sudo pip install pymodbus
 Copiez le fichier `sun2000_modbus.py` et `sun2000-sample.conf` dans votre dossier `/home/<user>`
 
 ## Le fichier de configuration
-La partie général permet de configurer le niveau de débug. A minima, pour commencer le niveau `debugdata = True` permet de s'assurer que les données sont correctement récupérées.
+La partie général permet de configurer le niveau de débug. A minima, pour commencer le niveau `debug = True` et `senddata = False` permet de s'assurer que les données sont correctement récupérées et mise en forme. Pour activer la transmission, passez `senddata = True`.
 
 La partie emoncms se personnalise avec:
 - Activation ou non de cette partie
@@ -62,8 +62,8 @@ Sauvegardez ce fichier sous le nom `sun2000.conf` à coté du script.
 [general]
 #Manage debug level
 modbusdebug = False
-debug = False
-debugdata = True
+debug = True
+senddata = False
 
 [emoncms]
 enabled = True
@@ -87,7 +87,7 @@ enabled = True
 url = https://www.bdpv.fr/webservice/majProd/expeditionProd_v3.php
 user = your-user
 api_key = you-api-key
-source = python_script
+source = perso
 # 'onduleur' or 'compteur'
 typereleve = onduleur
 #Each day 2:00 am
@@ -129,7 +129,6 @@ efficiency_ratio = 100
 devicestatus_index = 20
 devicestatus_ratio = 1
 
-
 ````
 
 
@@ -152,7 +151,7 @@ Emondata: {'PUI_PROD': 0.0, 'TEMP_INT': 0.0, 'AllTimeEnergy': 4239.09, 'DailyEne
 
 Emon data sent <Response [200]>
 ````
-Elle donne les données lues sur l'onduleur, la mise en forme EmonCMS, le résultat de l'envoi. Si PVOutput est actif, les données transmises sont également affichées ainsi que le résultat de transmission.  
+Elle donne les données lues sur l'onduleur, la mise en forme EmonCMS, le résultat de l'envoi. Si PVOutput et BDPV sont actifs, les données transmises sont également affichées ainsi que le résultat de transmission.  
 Vérifiez que les données arrivent correctement sur chaque plateforme. Si c'est OK, il suffit d'automatiser
 
 ### Automatisation
