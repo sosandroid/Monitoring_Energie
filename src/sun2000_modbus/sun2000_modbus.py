@@ -261,7 +261,7 @@ def sendPVOutput(data):
     
     if(Pvoutputcfg['enabled'] and float(Pvoutputcfg['nextapicall_timestamp']) < time.time()):
     
-        data['VoltageAvg'] = int((data['VoltageL1'] + data['VoltageL2'] + data['VoltageL3'])/3)
+        data['VoltageAvg'] = (data['VoltageL1'] + data['VoltageL2'] + data['VoltageL3'])/3
         pvoutputlabels = {'InstantPower': 'v2', 'AllTimeEnergy': 'v1', 'VoltageAvg': 'v6'}
         pvoutputdata = remapKeys(data, pvoutputlabels, False)
         
