@@ -49,7 +49,7 @@ Pvoutputcfg          = None
 Bdpvcfg              = None
 ModbusDebug          = False
 debug                = False
-senddata            = False
+senddata             = False
 
 
 # --------------------------------------------------------------------------- #
@@ -57,7 +57,7 @@ senddata            = False
 # --------------------------------------------------------------------------- #
 
 def getConfig(file):
-    global Sun2000cfg, Emoncfg, Pvoutputcfg, ModbusDebug, Bdpvcfg, debug, Config, debugdata
+    global Sun2000cfg, Emoncfg, Pvoutputcfg, ModbusDebug, Bdpvcfg, debug, Config, senddata
     
     if os.path.isfile(file):
         Config = ConfigParser()
