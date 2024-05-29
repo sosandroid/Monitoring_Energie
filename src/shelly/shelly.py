@@ -105,6 +105,27 @@ def toggleShellyswitch(command = 'off'):
 # --------------------------------------------------------------------------- #
 # Functions - energy routing limitation
 # --------------------------------------------------------------------------- #
+def getDailyProd():
+    #from feed
+    #returns value in Wh
+    global Emoncfg, debug
+    url = Emoncfg['url']+Emoncfg['r_uri_dailyenergy']+str(todayMidnight())+'&apikey='+Emoncfg['apikey']
+    if (debug): printDebug('EmonURL energy', url)
+    resp = requests.get(url)
+    if (debug): printDebugHttp('Daily Energy', resp)
+    return float(resp.text) * 1000
+
+def getDailyProd2():
+    #from input {'time': 1717015802, 'value': 14.68, 'processList': ''}
+    #returns value in Wh
+
+    global Emoncfg, debug
+    url = Emoncfg['url']+Emoncfg['r_uri_daily2']+'?apikey='+Emoncfg['apikey']
+    #url = Emoncfg['url']+Emoncfg['r_uri_daily2']
+    if (debug): printDebug('EmonURL energy', url)
+    resp = requests.get(url)
+    if (debug): printDebugHttp('Daily Energy', resp)
+    return float(resp.json()['value']) * 1000
 
 # --------------------------------------------------------------------------- #
 # Functions - utils funtions
@@ -164,14 +185,22 @@ def setNextResetAllowedTime():
     #Set tomorrow at the conf hour
     Config['shellypro3em']['next_relay_reset'] = str(next)
     setConfig()
+
+def todayMidnight():
+    return int(datetime.strptime(str(datetime.today().strftime('%Y-%m-%d')) + ' 00:00:00', '%Y-%m-%d %H:%M:%S').timestamp())
+
+def todayNow():
+    return int(datetime.today().timestamp())
     
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":
     if(getConfig(ConfFile)):  
-        getShellydata()
+        #getShellydata()
         #toggleShellyswitch('toto')
-        sendEmonCMS(Shellydata) #send data to EmonCMS
+        #sendEmonCMS(Shellydata) #send data to EmonCMS
+       print( getDailyProd())
+       print(getDailyProd2())
     else:
         print('Can do nothing, no config found')
