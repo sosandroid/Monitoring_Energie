@@ -104,10 +104,18 @@ def toggleShellyswitch(command = 'off'):
 
 # --------------------------------------------------------------------------- #
 # Functions - energy routing limitation
+#
+# 2 options to manage the routing energy quantity.
+# a- using solcast to get power generation forecast.
+# b- using ECS temperature
+# c- using routed energy
+#
+# The ideal is using a combination of the 3 data
+# 
 # --------------------------------------------------------------------------- #
 def getDailyProd():
     #from feed
-    #returns value in Wh
+    #returns value in Wh https://identity-dev.mobifactory.net
     global Emoncfg, debug
     url = Emoncfg['url']+Emoncfg['r_uri_dailyenergy']+str(todayMidnight())+'&apikey='+Emoncfg['apikey']
     if (debug): printDebug('EmonURL energy', url)
@@ -118,14 +126,15 @@ def getDailyProd():
 def getDailyProd2():
     #from input {'time': 1717015802, 'value': 14.68, 'processList': ''}
     #returns value in Wh
-
     global Emoncfg, debug
     url = Emoncfg['url']+Emoncfg['r_uri_daily2']+'?apikey='+Emoncfg['apikey']
-    #url = Emoncfg['url']+Emoncfg['r_uri_daily2']
     if (debug): printDebug('EmonURL energy', url)
     resp = requests.get(url)
     if (debug): printDebugHttp('Daily Energy', resp)
     return float(resp.json()['value']) * 1000
+	
+def limitFromProduction():
+    
 
 # --------------------------------------------------------------------------- #
 # Functions - utils funtions

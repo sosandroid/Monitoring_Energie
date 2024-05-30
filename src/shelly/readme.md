@@ -6,7 +6,7 @@ Ce script Python connecte un compteur Shelly pro 3EM pour mesurer la quantité d
 
 ## Prérequis
 - Python 3.10+
-- _optionnel_ compte Emoncms pour sauvegarder les données
+- compte Emoncms pour sauvegarder les données
 
 ## Installation
 
@@ -22,7 +22,7 @@ sudo apt install -y python3-pip
 ````
 
 ### Shelly
-Copiez le fichier `shelly.py` et `sun2000-sample.conf` dans votre dossier `/home/<user>`
+Copiez le fichier `shelly.py` et `shelly-sample.conf` dans votre dossier `/home/<user>/shelly`
 
 ## Le fichier de configuration
 La partie général permet de configurer le niveau de débug. A minima, pour commencer le niveau `debug = True` et `senddata = False` permet de s'assurer que les données sont correctement récupérées et mise en forme. 
@@ -64,7 +64,6 @@ meas3_uri = emeter/2/3em_data
 
 ````
 
-
 ## Fonctionnement
 
 ### Test
@@ -76,39 +75,34 @@ Lancez le script
 ````
 python3 ./shelly.py
 ````
-Vous devriez obtenir une réponse comme cella là :
+Vous devriez obtenir une réponse comme celle là :
 ````
-{'InstantPower': 0.0, 'InternalTemp': 0.0, 'AllTimeEnergy': 4239.09, 'DailyEnergy': 20.36, 'VoltageL1': 0.0, 'VoltageL2': 0.0, 'VoltageL3': 0.0, 'CurrentL1': 0.0, 'CurrentL2': 0.0, 'CurrentL3': 0.0, 'ActivePower': 0.0, 'GridFrequency': 0.0, 'Efficiency': 0.0, 'DeviceStatusCode': '0xa000'}
-
-Emondata: {'PUI_PROD': 0.0, 'TEMP_INT': 0.0, 'AllTimeEnergy': 4239.09, 'DailyEnergy': 20.36, 'VoltageL1': 0.0, 'VoltageL2': 0.0, 'VoltageL3': 0.0, 'CurrentL1': 0.0, 'CurrentL2': 0.0, 'CurrentL3': 0.0, 'ActivePower': 0.0, 'GridFrequency': 0.0, 'Efficiency': 0.0}
-
-Emon data sent <Response [200]>
+{"id":0,"a_current":4.029,"a_voltage":236.1,"a_act_power":951.2,"a_aprt_power":951.9,"a_pf":1,"a_freq":50,"b_current":4.027,"b_voltage":236.201,"b_act_power":-951.1,"b_aprt_power":951.8,"b_pf":1,"b_freq":50,"c_current":3.03,"c_voltage":236.402,"c_active_power":715.4,"c_aprt_power":716.2,"c_pf":1,"c_freq":50,"n_current":11.029,"total_current":11.083,"total_act_power":2484.782,"total_aprt_power":2486.7,"user_calibrated_phase":[],"errors":["phase_sequence"]}
 ````
-Elle donne les données lues sur l'onduleur, la mise en forme EmonCMS, le résultat de l'envoi. Si PVOutput et BDPV sont actifs, les données transmises sont également affichées ainsi que le résultat de transmission.  
-Vérifiez que les données arrivent correctement sur chaque plateforme. Si c'est OK, il suffit d'automatiser
+Elle donne les données lues sur le compteur Shelly, la mise en forme EmonCMS, le résultat de l'envoi. Vérifiez que les données arrivent correctement sur EmonCMS. Si c'est OK, il suffit d'automatiser
 
 ### Automatisation
 Désactivez le mode débug dans le fichier de configuration.  
 
-Vérifiez le chemin complet dans lequel se trouve le script. Comme vu ci-dessous, dans notre cas nous sommes dans `/home/emoncms/onduleur`
+Vérifiez le chemin complet dans lequel se trouve le script. Comme vu ci-dessous, dans notre cas nous sommes dans `/home/emoncms/shelly`
 ```sh
-emoncms@emoncms:~/onduleur$ pwd
-/home/emoncms/onduleur
+emoncms@emoncms:~/shelly$ pwd
+/home/emoncms/shelly
 ```
 Créer un fichier `sun2000.sh` dans lequel vous ajoutez les lignes ci-dessous (à adapter). Appelé chaque minute, il lance 4 exécutions séparées de 15 secondes.
 
 ````sh
 #!/bin/bash
-/usr/bin/python3 /home/emoncms/onduleur/sun2000_modbus.py &
-sleep 15 && /usr/bin/python3 /home/emoncms/onduleur/sun2000_modbus.py &
-sleep 30 && /usr/bin/python3 /home/emoncms/onduleur/sun2000_modbus.py &
-sleep 45 && /usr/bin/python3 /home/emoncms/onduleur/sun2000_modbus.py &
+/usr/bin/python3 /home/emoncms/shelly/shelly.py &
+sleep 15 && /usr/bin/python3 /home/emoncms/shelly/shelly.py &
+sleep 30 && /usr/bin/python3 /home/emoncms/shelly/shelly.py &
+sleep 45 && /usr/bin/python3 /home/emoncms/shelly/shelly.py &
 ````
-Rendez le exécutable `chmod a+x sun2000.sh`
-Vérifiez le fonctionnement `./sun2000.sh`, 4 jeux de données devraient arriver en 1 minute.
+Rendez le exécutable `chmod a+x shelly.sh`
+Vérifiez le fonctionnement `./shelly.sh`, 4 jeux de données devraient arriver en 1 minute.
 
 Ajoutez le au crontab `crontab -e`  
-`* * * * * /usr/bin/sh /home/emoncms/onduleur/sun2000.sh`
+`* * * * * /usr/bin/sh /home/emoncms/shelly/shelly.sh`
 
 C'est terminé, les données arrivent toutes les 15 secondes.
 

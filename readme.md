@@ -10,6 +10,7 @@ L'objectif est de surveiller une installation photovolatïque en auto-consommati
 - Puissance soutirée du réseau
 - Puissance injectée dans le réseau
 - Puissance produite par les panneaux
+- Puissance routée dans le chauffe-eau
 
 Un autre objectif, arrivé avec le changement d'offre de mon fournisseur d'énergie, est la surveillance des jours Tempo rouge.
 
@@ -23,14 +24,16 @@ La collecte des données est faite par [EmonCMS](https://github.com/emoncms/emon
 
 ```mermaid
 flowchart LR;
-    A(Linky)-->B;
+    A(Linky)--serial-->B;
     B(Denky D4)--PUI_SOUT & PUI_INJ-->C;
     C([EmonCMS])-->D;
     D([SolarPV App]);
-    E(Onduleur Sun2000)-->F;
-    F([sun2000_modbus.py])--PUI_PROD-->C
-    F--PUI_PROD & Total_Energy-->G([PVOutput.org])
-    F--Total_Energy-->H([BDPV.fr])
+    E(Onduleur Sun2000)--modbus-->F;
+    F([sun2000_modbus.py])--PUI_PROD-->C;
+    F--PUI_PROD & Total_Energy-->G([PVOutput.org]);
+    F--Total_Energy-->H([BDPV.fr]);
+	I(Shelly Pro 3EM)--http-->J;
+	J([Shelly.py])--PUI_ROUTEE-->C;
 ```
 ## Serveur installé
 Nous recyclons un vieux PC sur lequel sera installé [Ubuntu Server](https://ubuntu.com/download/server) 22.04 LTS. L'installation depuis une clef "Live-usb" se fait facilement. Voir [là](https://doc.ubuntu-fr.org/live_usb) et [là](https://doc.ubuntu-fr.org/tutoriel/installation_sur_disque_usb).  
@@ -53,6 +56,9 @@ Le [script](./src/sun2000_modbus) proposé connecte l'onduleur et récupère les
 L'installation est décrite via le fichier de [documentation](./src/sun2000_modbus/readme.md)
 
 Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) et [ModbusTool](https://github.com/ClassicDIY/ModbusTool) a bien servi pour vérifier la lecture correcte des données via le script Python.
+
+## Routeur d'énergie
+Pour améliorer l'auto-consommation, j'utilise un routeur d'énergie triphasé [MK2PVrouter](https://github.com/sosandroid/PVRouter-3-phase). L'énergie envoyée dans le ballon d'eau chaude est surveillée par un Shelly Pro 3EM. Sur le même principe que l'onduleur, un [script](./src/shelly) Python est proposé pour envoyer les données vers EmonCMS. Le chauffe eau étant hybride photo-thermique / électrique, il faut surveiller la quantité d'énergie injectée et sa température pour désactiver le routage au besoin.
 
 ## Suivi Offre Tempo
 Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi. Il permet de régler la couleur de déclenchement de l'alerte et d'envoyer un email enrichi de la météo locale. Pratique pour anticiper...
