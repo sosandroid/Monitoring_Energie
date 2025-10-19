@@ -3,6 +3,8 @@
 
 Ce script Python connecte un compteur Shelly pro 3EM pour mesurer la quantité d'énergie injectée dans le ballon et couper le routage d'energie en foinction de ce qui a déjà été envoyé dans le ballon d'eau chaude.
 
+Un exemple de script pour une récupération des données en Modbus TCP. Le script permet 2 usages : récupération des données en `float` ou en `int`. Cela permet de gérer certains PLC ne supportant que les valeurs entières. Le script de transmission vers le PLC n'est pas réalisé.
+
 
 ## Prérequis
 - Python 3.10+
@@ -109,5 +111,6 @@ C'est terminé, les données arrivent toutes les 15 secondes.
 ## A faire
 - Améliorer le script en diminuant les appels `Global`
 - Mieux utiliser la variable `Config` pour en faire un seul élément
+
 
 
