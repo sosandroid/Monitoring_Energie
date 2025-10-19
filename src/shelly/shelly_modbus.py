@@ -4,6 +4,7 @@
 ## Date 2025-10-19
 ## Version : 1.0
 ## Description : Ce script lit les registres Modbus TCP du Shelly Pro 3EM pour les mettre à disposition d'une autre application. Permet de fournir des float ou int en fonction de l'usage. par exemple un PLC ne gère que des int.
+## Doc Shelly https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/EM/#modbus-registers
 #####################################################
 
 from pymodbus.client import ModbusTcpClient
@@ -138,4 +139,5 @@ if __name__ == "__main__":
     )
     if shelly_data is not None:
         for key, value in shelly_data.items():
+
             print(f"{key}: {value}")
