@@ -1,8 +1,8 @@
 #####################################################
 ## Lecture des registres Modbus TCP du Shelly Pro 3EM
 ## Auteur : Sosandroid
-## Date 2025-10-19
-## Version : 1.0
+## Date 2025-10-21
+## Version : 1.1
 ## Description : Ce script lit les registres Modbus TCP du Shelly Pro 3EM pour les mettre à disposition d'une autre application. Permet de fournir des float ou int en fonction de l'usage. par exemple un PLC ne gère que des int.
 ## Doc Shelly https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/EM/#modbus-registers
 #####################################################
@@ -23,17 +23,16 @@ regsiters_length = 75  # Nombre de registres à lire
 def read_inputRegisters_shelly(ip, port, unit, address, length):
     # Connexion au client Modbus TCP; récupération de la réponse brute et transmission
     # 
-    client = ModbusTcpClient(ip, port)
-    client.connect()
-    try:
-        response = client.read_input_registers(address, length, slave=unit)
-        if not response.isError():
-            return response.registers
-        else:
+    with ModbusTcpClient(ip, port) as client:
+        client.connect()
+        response = client.read_input_registers(address, length, unit=unit)
+        if response is None:
+            print("Aucune réponse")
+            return None
+        if hasattr(response, "isError") and response.isError():
             print(f"Erreur de lecture : {response}")
             return None
-    finally:
-        client.close()
+        return response.registers
         
 def decode_float32_from_registers(registers):
     # Décodage des deux registres en un float 32 bits
