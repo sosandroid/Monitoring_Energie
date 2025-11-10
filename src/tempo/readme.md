@@ -14,7 +14,7 @@ flowchart LR;
     D-->G[fa:fa-envelope mail n];
 ```
 
-Si une variation de jour ou de couleur de jour est détectée, le script poursuit, pour chaque groupe de destainataires, vérifie le niveau d'alerte souhaité avant de récupérer les informations de météo locale et de prévisions solaire (si besoin).
+Si une variation de jour ou de couleur de jour est détectée, le script, pour chaque groupe de destainataires, vérifie le niveau d'alerte souhaité avant de récupérer les informations de météo locale et de prévisions solaire (si besoin).
 Pour l'automatisation, vous pouvez soit le faire à intervalle régulier (couleur de demain au plus tôt) ou à horaire fixe.
 
 Depuis la première version, les changements suivants ont été apportés
@@ -60,3 +60,4 @@ Rendez les fichiers python exécutables `chmod a+x *.py`
 Lancez une fois à la main `py ./ene.py` pour valider le fonctionnement.  
 Si tout fonctionne, il restera à automatiser le lancement via un CronJob. Pour cela personnalisez le fichier tempo.sh par rapport à votre installation. Rendez le exécutable `chmod a+x tempo.sh`.  
 Il n'y a plus qu'à l'appeler via le cron. Pour ma part, il est appelé à 6h puis toutes les heures entre 11 et 21h. `0 6,11-21 * * *`
+
