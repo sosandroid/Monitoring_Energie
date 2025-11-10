@@ -1,0 +1,4 @@
+<h4>Les prévisions de production solaire</h4>
+<div style="width:100%; height:auto; text-align: center; margin-left: auto; margin-right: auto;">
+<div style="style=min-width: 70px; width:auto; max-width:150px;height:auto; margin: auto; border: 1px solid; border-radius: 10px; padding: 3px;font-weight:bold;margin-bottom:2px;background:#ccc;color:#000;border-color:#ccc;">aujourd'hui __solar_today__ kWh</div><div style="style=min-width: 70px; width:auto; max-width:150px;height:auto; margin: auto; border: 1px solid; border-radius: 10px; padding: 3px;font-weight:bold;margin-bottom:2px;background:#ccc;color:#000;border-color:#ccc;">demain __solar_tomorrow__ kWh</div></div>
+<div class="clear"></div>

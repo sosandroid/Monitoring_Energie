@@ -1,0 +1,78 @@
+{
+    "description": "Config file for service",
+    "app":{
+        "mailhtmltemplate":"tpl/mail.tpl",
+        "mailtxttemplate": "tpl/mailtxt.tpl",
+        "meteotemplate":"tpl/meteo.tpl",
+        "meteocardtemplate":"tpl/meteocard.tpl",
+        "messageicons-img": "json/icons-img.json",
+        "forecastsolartemplate":"tpl/forecastsolar.tpl",
+        "tempotemplate":"tpl/tempo.tpl"
+    },
+    "owm": {
+        "desc": "Openweathermap.org parameters. Lat and long are used fron recipients list",
+        "params": {
+            "appid": "your-app-id",
+            "lat": 0,
+            "lon": 0,
+            "cnt":8,
+            "units": "metric",
+            "lang": "fr"
+        },
+        "forcast_url": "https://api.openweathermap.org/data/2.5/forecast?"
+    },
+    "csscouleurs": [
+        "background:#ccc;color:#000;border-color:#ccc;",
+        "background:#0000e6;color:#FFF;border-color:#0000e6",
+        "background:#FFF;color:#000;border-color:#ccc",
+        "background:#e60000;color:#FFF;border-color:#e60000;"
+    ],
+    "subjectEmail": {
+        "matin": "Aujourd'hui Tempo __couleurj__",
+        "demain": "Demain Tempo __couleurj1__"
+    },
+    "smtp": {
+        "host": "smtp-server-you-want",
+        "port": 587,
+        "secure": true,
+        "auth": {
+            "user": "your-user",
+            "pass": "your-key"
+        }
+    },
+    "recipients": [
+        {
+            "emails": [
+                "user1@domain.tld",
+                "user2@domain.tld"
+            ],
+            "location": {
+                "desc": "Utilisé pour OWM et forecast.solar",
+				"lat": "43.0",
+                "lon": "5.0",
+                "declination": "30",
+                "azimuth": "10",
+                "kwpeak": "4.5"
+            },
+            "hasphotovoltaics": true,
+            "alert-level": 3,
+			"alert-level-comment":"Niveau à partir duquel le mail est envoyé : 1 bleu, 2 blanc, 3 rouge"
+        },
+        {
+            "emails": [
+                "user3@domain.tld"
+            ],
+            "location": {
+                "desc": "Utilisé pour OWM et forecast.solar",
+				"lat": "50.0",
+                "lon": "3.0",
+                "declination": "0",
+                "azimuth": "0",
+                "kwpeak": "0"
+            },
+            "hasphotovoltaics": false,
+            "alert-level": 2,
+			"alert-level-comment":"Niveau à partir duquel le mail est envoyé : 1 bleu, 2 blanc, 3 rouge"
+        }
+    ]
+}

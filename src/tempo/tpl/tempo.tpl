@@ -1,0 +1,4 @@
+<h4>Les couleurs du Tempo</h4>
+<div style="width:100%; height:auto; text-align: center; margin-left: auto; margin-right: auto;"><div style="min-width: 70px; width:auto; max-width:150px;height:auto; margin: auto; border: 1px solid; border-radius: 10px; padding: 3px;font-weight:bold;margin-bottom:2px;__stylej__">aujourd'hui : __couleurj__</div><div style="min-width: 70px; width:auto; max-width:150px;height:auto; margin: auto; border: 1px solid; border-radius: 10px; padding: 3px;font-weight:bold;margin-bottom:2px;__stylej1__">demain : __couleurj1__</div></div>
+<div class="clear" style="clear: both;"></div>
+<p>Il restera à planifier <b>__nbrouges__</b> jours rouges <small>(__prixhprouge__ €/kWh)</small> et <b>__nbblancs__</b> jours blancs <small>(__prixhpblanc__ €/kWh)</small></p>

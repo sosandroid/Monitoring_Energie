@@ -1,0 +1,27 @@
+{
+  "result": {
+    "2025-11-08": 12132,
+    "2025-11-09": 7086
+  },
+  "message": {
+    "code": 0,
+    "type": "success",
+    "text": "",
+    "pid": "1zBs5xMr",
+    "info": {
+      "latitude": 44.000,
+      "longitude": 5.000,
+      "distance": 0.028,
+      "place": "somewhere, France",
+      "timezone": "Europe/Paris",
+      "time": "2025-11-08T16:22:38+01:00",
+      "time_utc": "2025-11-08T15:22:38+00:00"
+    },
+    "ratelimit": {
+      "zone": "IP 10.10.10.10",
+      "period": 3600,
+      "limit": 12,
+      "remaining": 7
+    }
+  }
+}
