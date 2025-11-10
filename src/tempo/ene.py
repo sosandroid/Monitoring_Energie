@@ -11,7 +11,6 @@
 
 from datetime import datetime
 from pathlib import Path
-#import time
 
 #import libs as libs  # Pour que les modules dans libs soient reconnus
 import libs.smtp as smtp
@@ -28,16 +27,19 @@ import libs.forecastsolar as forecastsolar
 
 version = "v0.0.3"
 
+debug                = False
+debug_data           = False  # affiche les données récupérées et quitte
+debug_sauvMail       = False  # sauvegarde les mails au format html pour vérification
+debug_NotSendMail    = False  # à mettre à False pour tests sans envoi de mail
+
 RootPath             = Path(__file__).parent.absolute()
-Config               = utils.loadJsonFile(str(RootPath / 'json/config-perso.json'))
+Config               = utils.loadJsonFile(str(RootPath / 'json/config.json'))
 Config['rootPath']   = str(RootPath)
 lastRunJson          = utils.loadJsonFile(str(RootPath / 'run.json'))
 lastJourStatus       = tempo.get_tempo_html(Config)
 
-debug                = True
-debug_sauvMail       = True  # sauvegarde les mails au format html pour vérification
-toSendMail           = False # indique si l'on doit faire le traitement pour les e-mails
-reallySendMail       = False  # à mettre à False pour tests sans envoi de mail
+toSendMail           = False # usage système - Ne pas modifier - indique si l'on doit faire le traitement pour les e-mails
+
 
 def resetLastRun():
     # remets à zéro les compteurs si on est un nouveau jour
@@ -101,28 +103,29 @@ def prepareEmailBody(recipient):
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":
 
-    if debug:
+    if debug and debug_data:
         print(f"Debug: {version} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        #print(f"Debug: RootPath = {globals()['Config']['rootPath']}")
-        #print(f"Debug: Last run data = {globals()['lastRunJson']}")
-        #print(f"Debug: Last jour status = {globals()['lastJourStatus']}")
-        #print(f"Debug: config = {globals()['Config']}")
-        #exit(0)
+        print(f"Debug: RootPath = {globals()['Config']['rootPath']}")
+        print(f"Debug: Last run data = {globals()['lastRunJson']}")
+        print(f"Debug: Last jour status = {globals()['lastJourStatus']}")
+        print(f"Debug: config = {globals()['Config']}")
+        exit(0)
     
     needForUpdateCheck()
     if toSendMail or debug:
         i = 1
         for recipient in globals()['Config']['recipients']:
             if ((globals()['lastJourStatus']['today_code'] >= recipient['alert-level']) or (globals()['lastJourStatus']['tomorrow_code'] >= recipient['alert-level'])) or debug:
+                if debug: print(f"Debug: aujourd'hui {globals()['lastJourStatus']['today_code']}, demain {globals()['lastJourStatus']['tomorrow_code']}, alerte niveau {recipient['alert-level']}")
+                
                 msg = prepareEmailBody(recipient)
+                
                 if debug_sauvMail: 
                     utils.saveFile(msg['html'], Path(globals()['Config']['rootPath']) / f"email_{i}.html")
                     print(f"Sauvegarde du mail #{i} (alerte niveau {recipient['alert-level']})")
             
-            if reallySendMail:
-                smtp.envoyer_email_smtp(
-                    globals()['Config']['smtp'],
-                    recipient['emails'],
-                    msg
-                )
-            i += 1
+                if not debug_NotSendMail:
+                    smtp.envoyer_email_smtp(globals()['Config']['smtp'], recipient['emails'], msg)
+                i += 1
+            else:
+                if debug: print(f"Debug: Pas d'envoi de mail pour ce destinataire, aujourd'hui {globals()['lastJourStatus']['today_code']}, demain {globals()['lastJourStatus']['tomorrow_code']}, alerte niveau {recipient['alert-level']}")
