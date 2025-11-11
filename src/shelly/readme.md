@@ -1,9 +1,13 @@
 
 # Shelly devices
 
-Ce script Python connecte un compteur Shelly pro 3EM pour mesurer la quantité d'énergie injectée dans le ballon et couper le routage d'energie en foinction de ce qui a déjà été envoyé dans le ballon d'eau chaude.
+Ces script Pythons connectent un compteur Shelly pro 3EM pour mesurer la quantité d'énergie injectée dans le ballon et couper le routage d'energie en fonction de ce qui a déjà été envoyé dans le ballon d'eau chaude.
 
-Un exemple de script pour une récupération des données en Modbus TCP. Le script permet 2 usages : récupération des données en `float` ou en `int`. Cela permet de gérer certains PLC ne supportant que les valeurs entières. Le script de transmission vers le PLC n'est pas réalisé.
+Dexu scripts :
+- Conenxion en API HTTP Rest
+- Connexion en modbus TCP
+
+Le script lodbus est un démonstrateur pour renvoyer les données vers au automate ensuite. Il permet 2 usages : récupération des données en `float` ou en `int`. Certains PLC ne supportant que les valeurs entières. Le script de transmission vers le PLC n'est pas réalisé.
 
 
 ## Prérequis
@@ -111,6 +115,7 @@ C'est terminé, les données arrivent toutes les 15 secondes.
 ## A faire
 - Améliorer le script en diminuant les appels `Global`
 - Mieux utiliser la variable `Config` pour en faire un seul élément
+
 
 
 
