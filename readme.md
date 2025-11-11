@@ -16,7 +16,7 @@ Un autre objectif, arrivé avec le changement d'offre de mon fournisseur d'éner
 
 Ce repo est autant un partage qu'un aide mémoire.
 
-![Profil Consommation](./res/Auto-conso-solaire.jpg)
+![Profil Consommation](./res/Auto-conso-routage.jpg)
 
 ## Système mis en place
 Nous avons deux appareils à surveiller de manière complémentaire : le compteur Enedis Linky et l'onduleur Huawei Sun2000. Le premier deviendra bavard via un [Denky D4](https://github.com/hallard/Denky-D4) proposé par Charles Hallard. Il permet de lire les données de la téléinfo et de les transmettre au serveur. L'onduleur est déjà connecté. Un script Python lira ses données pour les partager.
@@ -65,3 +65,4 @@ Pour générer des alertes lors des jours rouges, un [script](https://github.com
 
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
+
