@@ -3,7 +3,9 @@
 
 Ces script Pythons connectent un compteur Shelly pro 3EM pour mesurer la quantité d'énergie injectée dans le ballon et couper le routage d'energie en fonction de ce qui a déjà été envoyé dans le ballon d'eau chaude.
 
-Dexu scripts :
+[![Buy me a coffee](../../res/default-yellow.png)](https://www.buymeacoffee.com/ju9hJ8RqGk)
+
+Deux scripts :
 - Conenxion en API HTTP Rest
 - Connexion en modbus TCP
 
@@ -115,6 +117,7 @@ C'est terminé, les données arrivent toutes les 15 secondes.
 ## A faire
 - Améliorer le script en diminuant les appels `Global`
 - Mieux utiliser la variable `Config` pour en faire un seul élément
+
 
 
 
