@@ -4,7 +4,7 @@
 > Due to the French national energy meter, _Linky_, all of this is very French related. This is why this depot is not in English. However, except the Berry script for Tasmota firmware which connects Linky, all the other things can be easily re-used.
 > The Python's inline comments are in English for better understanding of the inverter connection.
   
-  
+[![Buy me a coffee](./res/default-yellow.png)](https://www.buymeacoffee.com/ju9hJ8RqGk)
   
 L'objectif est de surveiller une installation photovolatïque en auto-consommation individuelle. Nous avons donc 3 données à surveiller et à mettre en forme pour avoir un graphique de ce type :
 - Puissance soutirée du réseau
@@ -65,4 +65,5 @@ Pour générer des alertes lors des jours rouges, un [script](https://github.com
 
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
+
 
