@@ -9,7 +9,7 @@ Deux scripts :
 - Conenxion en API HTTP Rest
 - Connexion en modbus TCP
 
-Le script lodbus est un démonstrateur pour renvoyer les données vers au automate ensuite. Il permet 2 usages : récupération des données en `float` ou en `int`. Certains PLC ne supportant que les valeurs entières. Le script de transmission vers le PLC n'est pas réalisé.
+Le script modbus est un _démonstrateur_ pour renvoyer les données vers au automate ensuite. Il permet 2 usages : récupération des données en `float` ou en `int`. Certains PLC ne supportant que les valeurs entières. Le script de transmission vers le PLC n'est pas réalisé.
 
 
 ## Prérequis
@@ -117,6 +117,7 @@ C'est terminé, les données arrivent toutes les 15 secondes.
 ## A faire
 - Améliorer le script en diminuant les appels `Global`
 - Mieux utiliser la variable `Config` pour en faire un seul élément
+
 
 
 
