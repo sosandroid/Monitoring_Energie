@@ -48,7 +48,7 @@ Matériel plutôt simple, il arrive prêt à fonctionner. Une [mise à jour](htt
 Selon le mode de communication du Linky, il faudra activer le mode standard (9600 bauds) ou le mode historique (1200 bauds). Voir la [doc](https://tasmota.github.io/docs/Teleinfo/#configuring-teleinfo).   
 En mode standard, la commande est `energyconfig standard`, en mode historique, la commande est `energyconfig historique`. La liste des [étiquettes TIC](./doc/tic_standard_histo.md) fournie pour mémoire. Il est à remarquer que pour de l'autoconsommation, le mode standard est nécessaire.
 
-__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. **UPDATE**: modifier l'interface est possible. C'est [expliqué là](https://github.com/hallard/Denky-D4#custom-web-interface). Il y a aussi l'alternative de [Nicolas Bernaerts](https://github.com/NicolasBernaerts/tasmota/tree/master/teleinfo) qui semble for intéressante.
+__Remarque__ : l'interface proposée par le Denky n'est pas conçue pour un mode en autoconsommation. Les données remontées peuvent être _bizarres_ en apparence. Il remonte néanmoins correctement les données lues du Linky vers EmonCMS. Rien de grave, c'est juste à garder en tête. La __meilleure alternative__ est le firmware de [Nicolas Bernaerts](https://github.com/NicolasBernaerts/tasmota/tree/master/teleinfo) qui apporter un lot de fonctionnalités supplémentaires non négligeable.
 
 ## L'onduleur Huawei
 L'onduleur Sun2000 de Huawei propose une interface ModbusTCP. Il faut l'activer depuis l'application FusionSolar pour qu'elle soit accessible par tous. 
@@ -65,5 +65,6 @@ Pour générer des alertes lors des jours rouges, un [script](https://github.com
 
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
+
 
 
