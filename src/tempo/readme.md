@@ -10,6 +10,7 @@ flowchart LR;
     A(Api-couleur-Tempo fa:fa-file-code)-->C;
     B(OpenWeatherMap fa:fa-file-code)-->C;
 	H(Forecast.solar fa:fa-file-code)-->C;
+    I(Open-dpe.fr fa:fa-file-code)-->C;
     C([fa:fa-code Suivi Tempo])-->D;
     D(fa:fa-file-code SMTP)-->E[fa:fa-envelope mail 1];
     D-->F[fa:fa-envelope mail 2];
@@ -24,6 +25,7 @@ Depuis la première version, les changements suivants ont été apportés
 - Retour à un SMTP
 - Support de plusieurs lieux, avec pour chaque lieux plusieurs destinataires possibles
 - Chaque lieu a ou non une installation photovolataïque
+- Ajout des prévision tempo avec Open-dpe.fr
 
 ## Installation
 
@@ -38,6 +40,7 @@ Les fichiers minimum pour fonctionner sont
     ├ tempo.py
     ├ smtp.py
     ├ utils.py
+    ├ opendpe.py
 └json
     ├ config-sample.json
     ├ icons-img.json
@@ -63,4 +66,5 @@ Lancez une fois à la main `py ./ene.py` pour valider le fonctionnement.
 Si tout fonctionne, il restera à automatiser le lancement via un CronJob. Pour cela personnalisez le fichier tempo.sh par rapport à votre installation. Rendez le exécutable `chmod a+x tempo.sh`.  
 Il n'y a plus qu'à l'appeler via le cron.  
 Pour ma part, il est appelé à 5h55 puis toutes les heures entre 10h55 et 21h55, tous les jours sauf samedi (car dimanche est bleu) et d'octobre à mai. `55 5,10-21 * 1-5,10-12 0-5`
+
 
