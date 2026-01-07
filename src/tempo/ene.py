@@ -6,6 +6,7 @@
 # V 0.0.1 11/2023 - fonctionne avec API EDF et Mailjet
 # V 0.0.2 10/2025 - passage à SMTP simple et couleur tempo API
 # V 0.0.3 11/2025 - ajout forecast solaire | multi-recherche météo et forecast solaire
+# V 0.0.4 01/2026 - ajout OpenDPE pour prévisions tempo
 # 
 ##############################
 
@@ -18,6 +19,7 @@ import libs.owm as owm
 import libs.utils as utils
 import libs.tempo as tempo
 import libs.forecastsolar as forecastsolar
+import libs.opendpe as opendpe
 
 
 
@@ -25,7 +27,7 @@ import libs.forecastsolar as forecastsolar
 # Globals
 # --------------------------------------------------------------------------- #
 
-version = "v0.0.3"
+version = "v0.0.4"
 
 debug                = False
 debug_data           = False  # affiche les données récupérées et quitte
@@ -79,6 +81,7 @@ def dataforEmail(recipient):
     data['__couleurj__'] = globals()['lastJourStatus']['__couleurj__']
     data['__couleurj1__'] = globals()['lastJourStatus']['__couleurj1__']
     data['__forecastsolarhtml__'] = forecastsolar.get_forecast_solar_html(recipient, globals()['Config'])
+    data.update(opendpe.getTempoForecast(globals()['Config']))
     data.update(owm.getWeatherCards(recipient, globals()['Config']))
     return data
 
@@ -90,7 +93,7 @@ def prepareEmailBody(recipient):
     body_text = utils.replaceTextInTemplate(template, data)
     body = {'html': body_html, 'text': body_text}
     
-    if(datetime.now().hour <= 11):
+    if(datetime.now().hour <= 10):
         sujet = globals()['Config']['subjectEmail']['matin']
     else:
         sujet = globals()['Config']['subjectEmail']['demain']
