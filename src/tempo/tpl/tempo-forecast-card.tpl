@@ -1,0 +1,1 @@
+<div style="width:50px;height:auto;text-align: center;border: 1px solid #ccc;font-size:0.9em;float: left;border-radius: 5px; margin-right:2px; margin-top:1px; padding-bottom:5px;padding-top:5px;__code_couleur_jour__">__jour_court__<br/>__probability__</div>

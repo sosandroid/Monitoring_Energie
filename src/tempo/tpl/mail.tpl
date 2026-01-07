@@ -3,6 +3,7 @@
 <h4>Bonjour,</h4>
 <p>Il est __heure__, le soleil se lève à __sunrise__ et se couche à __sunset__.</p>
 __tempohtml__
+__tempoforcasthtml__
 __forecastsolarhtml__
 __meteohtml__
 </div></body></html>
