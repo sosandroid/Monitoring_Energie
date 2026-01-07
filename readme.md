@@ -61,10 +61,11 @@ Pour ceux qui souhaitent aller plus loin, la [doc Huawei](./doc/Huawei-Modbus) e
 Pour améliorer l'auto-consommation, j'utilise un routeur d'énergie triphasé [MK2PVrouter](https://github.com/sosandroid/PVRouter-3-phase). L'énergie envoyée dans le ballon d'eau chaude est surveillée par un Shelly Pro 3EM. Sur le même principe que l'onduleur, un [script](./src/shelly) Python est proposé pour envoyer les données vers EmonCMS. Le chauffe eau étant hybride photo-thermique / électrique, il faut surveiller la quantité d'énergie injectée et sa température pour désactiver le routage au besoin.
 
 ## Suivi Offre Tempo
-Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi. Il permet de régler la couleur de déclenchement de l'alerte et d'envoyer un email enrichi de la météo locale. Pratique pour anticiper...
+Pour générer des alertes lors des jours rouges, un [script](https://github.com/sosandroid/Monitoring_Energie/tree/main/src/tempo) est posposé afin de générer un envoi de mail un peu enrichi. Il permet de régler la couleur de déclenchement de l'alerte et d'envoyer un email enrichi de la météo locale, les prévision de productions solaire et les prévisions des prochains jours temps. Pratique pour anticiper...
 
 ---
 Pour les autres types d'installation sur micro-onduleur, et ceux qui me l'ont demandé. Quelques liens proposés [micro-onduleurs.md](./doc/micro-onduleurs.md)
+
 
 
 
