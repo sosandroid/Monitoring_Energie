@@ -1,5 +1,5 @@
 {
-    "description": "Config file for service",
+    "description": "Config file pour surveillance tempo",
     "app":{
         "mailhtmltemplate":"tpl/mail.tpl",
         "mailtxttemplate": "tpl/mailtxt.tpl",
@@ -7,7 +7,9 @@
         "meteocardtemplate":"tpl/meteocard.tpl",
         "messageicons-img": "json/icons-img.json",
         "forecastsolartemplate":"tpl/forecastsolar.tpl",
-        "tempotemplate":"tpl/tempo.tpl"
+        "tempotemplate":"tpl/tempo.tpl",
+        "tempoForecastTemplate":"tpl/tempo-forecast.tpl",
+        "tempoForecastCardTemplate":"tpl/tempo-forecast-card.tpl"
     },
     "owm": {
         "desc": "Openweathermap.org parameters. Lat and long are used fron recipients list",
@@ -20,6 +22,10 @@
             "lang": "fr"
         },
         "forcast_url": "https://api.openweathermap.org/data/2.5/forecast?"
+    },
+    "opendpe": {
+        "desc": "OpenDPE parameters for Tempo forecast",
+        "base_url": "https://open-dpe.fr/assets/tempo_days_lite.json"
     },
     "csscouleurs": [
         "background:#ccc;color:#000;border-color:#ccc;",
